@@ -11,7 +11,6 @@ import {
   Shield,
   CheckCircle2
 } from "lucide-react";
-import heroImage from "@assets/generated_images/professional_workspace_hero_image.png";
 
 export default function Home() {
   return (
@@ -21,12 +20,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          className="absolute inset-0 z-0 bg-gradient-to-br from-primary/30 via-primary/20 to-accent/30"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70" />
         </div>
