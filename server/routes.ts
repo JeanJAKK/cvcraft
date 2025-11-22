@@ -4,8 +4,6 @@ import express from "express";
 import { storage } from "./storage";
 import { insertCvSchema, insertUserSchema } from "@shared/schema";
 import bcrypt from "bcryptjs";
-import { registerFlutterwaveRoutes } from "./flutterwave-routes";
-import { initFlutterwave } from "./flutterwaveClient";
 
 declare global {
   namespace Express {
@@ -16,15 +14,6 @@ declare global {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Initialize Flutterwave
-  try {
-    console.log('Initializing Flutterwave...');
-    await initFlutterwave();
-    console.log('Flutterwave ready');
-  } catch (error) {
-    console.error('Flutterwave initialization note:', error instanceof Error ? error.message : error);
-  }
-
   // Apply JSON middleware
   app.use(express.json({
     verify: (req, _res, buf) => {
@@ -197,9 +186,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to delete CV" });
     }
   });
-
-  // Register Flutterwave payment routes
-  registerFlutterwaveRoutes(app);
 
   const httpServer = createServer(app);
   return httpServer;

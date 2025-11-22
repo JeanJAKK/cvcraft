@@ -6,19 +6,12 @@ import {
   type Template 
 } from "@shared/schema";
 import { randomUUID } from "crypto";
-import { eq, sql } from "drizzle-orm";
-import { users as usersTable } from "@shared/schema";
-import { db } from "./db";
 
 export interface IStorage {
   // User methods
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  updateUserStripeInfo(userId: string, stripeInfo: {
-    stripeCustomerId?: string;
-    stripeSubscriptionId?: string;
-  }): Promise<User | undefined>;
 
   // CV methods
   getCV(id: string): Promise<CV | undefined>;
@@ -30,15 +23,6 @@ export interface IStorage {
   // Template methods
   getTemplate(id: string): Promise<Template | undefined>;
   getAllTemplates(): Promise<Template[]>;
-
-  // Stripe methods
-  getProduct(productId: string): Promise<any>;
-  listProducts(active?: boolean, limit?: number, offset?: number): Promise<any[]>;
-  listProductsWithPrices(active?: boolean, limit?: number, offset?: number): Promise<any[]>;
-  getPrice(priceId: string): Promise<any>;
-  listPrices(active?: boolean, limit?: number, offset?: number): Promise<any[]>;
-  getPricesForProduct(productId: string): Promise<any[]>;
-  getSubscription(subscriptionId: string): Promise<any>;
 }
 
 export class MemStorage implements IStorage {
@@ -131,12 +115,7 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = randomUUID();
-    const user: User = { 
-      ...insertUser, 
-      id,
-      stripeCustomerId: null,
-      stripeSubscriptionId: null
-    };
+    const user: User = { ...insertUser, id };
     this.users.set(id, user);
     return user;
   }
@@ -177,95 +156,6 @@ export class MemStorage implements IStorage {
 
   async getAllTemplates(): Promise<Template[]> {
     return Array.from(this.templates.values());
-  }
-
-  // Stripe methods
-  async updateUserStripeInfo(userId: string, stripeInfo: {
-    stripeCustomerId?: string;
-    stripeSubscriptionId?: string;
-  }): Promise<User | undefined> {
-    const user = this.users.get(userId);
-    if (!user) return undefined;
-
-    const updated: User = { 
-      ...user,
-      ...(stripeInfo.stripeCustomerId && { stripeCustomerId: stripeInfo.stripeCustomerId }),
-      ...(stripeInfo.stripeSubscriptionId && { stripeSubscriptionId: stripeInfo.stripeSubscriptionId }),
-    };
-    this.users.set(userId, updated);
-    return updated;
-  }
-
-  async getProduct(productId: string): Promise<any> {
-    const result = await db.execute(
-      sql`SELECT * FROM stripe.products WHERE id = ${productId}`
-    );
-    return result.rows[0] || null;
-  }
-
-  async listProducts(active = true, limit = 20, offset = 0): Promise<any[]> {
-    const result = await db.execute(
-      sql`SELECT * FROM stripe.products WHERE active = ${active} LIMIT ${limit} OFFSET ${offset}`
-    );
-    return result.rows;
-  }
-
-  async listProductsWithPrices(active = true, limit = 20, offset = 0): Promise<any[]> {
-    const result = await db.execute(
-      sql`
-        WITH paginated_products AS (
-          SELECT id, name, description, metadata, active
-          FROM stripe.products
-          WHERE active = ${active}
-          ORDER BY id
-          LIMIT ${limit} OFFSET ${offset}
-        )
-        SELECT 
-          p.id as product_id,
-          p.name as product_name,
-          p.description as product_description,
-          p.active as product_active,
-          p.metadata as product_metadata,
-          pr.id as price_id,
-          pr.unit_amount,
-          pr.currency,
-          pr.recurring,
-          pr.active as price_active,
-          pr.metadata as price_metadata
-        FROM paginated_products p
-        LEFT JOIN stripe.prices pr ON pr.product = p.id AND pr.active = true
-        ORDER BY p.id, pr.unit_amount
-      `
-    );
-    return result.rows;
-  }
-
-  async getPrice(priceId: string): Promise<any> {
-    const result = await db.execute(
-      sql`SELECT * FROM stripe.prices WHERE id = ${priceId}`
-    );
-    return result.rows[0] || null;
-  }
-
-  async listPrices(active = true, limit = 20, offset = 0): Promise<any[]> {
-    const result = await db.execute(
-      sql`SELECT * FROM stripe.prices WHERE active = ${active} LIMIT ${limit} OFFSET ${offset}`
-    );
-    return result.rows;
-  }
-
-  async getPricesForProduct(productId: string): Promise<any[]> {
-    const result = await db.execute(
-      sql`SELECT * FROM stripe.prices WHERE product = ${productId} AND active = true`
-    );
-    return result.rows;
-  }
-
-  async getSubscription(subscriptionId: string): Promise<any> {
-    const result = await db.execute(
-      sql`SELECT * FROM stripe.subscriptions WHERE id = ${subscriptionId}`
-    );
-    return result.rows[0] || null;
   }
 }
 
