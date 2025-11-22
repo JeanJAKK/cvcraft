@@ -53,12 +53,8 @@ app.use(session({
   }
 }));
 
-app.use(express.json({
-  verify: (req, _res, buf) => {
-    req.rawBody = buf;
-  }
-}));
-app.use(express.urlencoded({ extended: false }));
+// Note: express.json() is applied in registerRoutes after webhook route registration
+// to ensure webhook route receives raw Buffer body
 
 app.use((req, res, next) => {
   const start = Date.now();

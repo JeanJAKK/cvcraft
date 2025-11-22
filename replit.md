@@ -250,10 +250,97 @@ All frontend changes must follow `design_guidelines.md` for:
 - Priority support (planned)
 - Advanced customization (planned)
 
+## Stripe Payment Integration
+
+### Setup Status
+✅ **ACTIVE** - Stripe payment processing is fully configured and operational.
+
+### Components Installed
+- `stripe` - Official Stripe SDK (v18+)
+- `stripe-replit-sync` - Automatic Stripe data syncing to PostgreSQL
+- PostgreSQL database with Stripe schema (automatically managed)
+- Managed webhook for real-time Stripe event synchronization
+
+### Key Files
+- `server/stripeClient.ts` - Stripe credentials and client initialization
+- `server/stripeService.ts` - Stripe API operations (customer, checkout, subscriptions)
+- `server/stripe-routes.ts` - Payment endpoints (products, checkout, subscriptions)
+- `server/stripe-storage.ts` - Stripe data queries from PostgreSQL
+- `server/webhookHandlers.ts` - Stripe webhook event processing
+- `server/seed-products.ts` - Script to create products in Stripe
+
+### Available Payment Endpoints
+
+#### Products
+- `GET /api/stripe/products` - List all products
+- `GET /api/stripe/products-with-prices` - Get products with prices joined
+- `GET /api/stripe/products/:productId/prices` - Get prices for specific product
+- `GET /api/stripe/prices` - List all prices
+
+#### Checkout & Subscriptions
+- `POST /api/stripe/checkout` - Create Stripe checkout session (requires `priceId`)
+- `GET /api/stripe/subscription` - Get user's current subscription
+- `POST /api/stripe/customer-portal` - Create customer portal session for managing subscriptions
+
+### How It Works
+
+1. **Database Schema**: `stripe-replit-sync` automatically creates and manages the `stripe` schema with tables for products, prices, customers, subscriptions, etc.
+
+2. **User Integration**: User table includes:
+   - `stripe_customer_id` - Links user to Stripe customer
+   - `stripe_subscription_id` - Tracks active subscription
+
+3. **Webhook**: Managed webhook at `/api/stripe/webhook/:uuid` automatically syncs Stripe data changes to PostgreSQL in real-time
+
+4. **Data Flow**: 
+   - Create products in Stripe (via API or dashboard)
+   - Webhooks automatically sync to `stripe.products` and `stripe.prices` tables
+   - App queries data from PostgreSQL (no live API calls needed)
+
+### Creating Products
+
+Option 1: Use the seed script (development only)
+```bash
+npm run seed-products
+```
+This creates:
+- Premium CV Templates product
+- Monthly price ($9.99)
+- Yearly price ($99.99)
+
+Option 2: Stripe Dashboard
+- Log in to Stripe Dashboard
+- Create product: "Premium CV Templates"
+- Create prices: monthly ($9.99) and yearly ($99.99)
+- Webhooks will automatically sync to database
+
+### Frontend Integration (Coming Soon)
+
+To add checkout to your frontend, you'll need to:
+
+1. Fetch products/prices from `/api/stripe/products-with-prices`
+2. Create checkout session: `POST /api/stripe/checkout` with `{ priceId }`
+3. Redirect to `session.url` from the response
+4. Stripe handles payment, then redirects to success/cancel URLs
+
+### Environment Variables
+
+- `STRIPE_PUBLISHABLE_KEY` - Set automatically via Stripe connection
+- `STRIPE_SECRET_KEY` - Set automatically via Stripe connection  
+- `DATABASE_URL` - Required for Stripe schema sync
+- `REPLIT_DOMAINS` - Used for webhook URL configuration
+
+### Deployment Notes
+
+- Stripe test mode for development (automatically configured)
+- Stripe live mode for production (automatically configured)
+- Replit handles switching credentials between environments
+- All product/price data automatically migrated during deployment
+
 ### Future Enhancements (Planned)
-- Stripe payment integration for premium templates
-- User authentication system
-- Cloud storage for CVs
+- Frontend checkout UI component
+- Premium template unlock after payment
+- Invoice generation and delivery
 - Custom branding options
 - AI-powered content suggestions
 - Multiple CV versions per user

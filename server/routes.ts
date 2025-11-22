@@ -1,8 +1,13 @@
 import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
+import express from "express";
 import { storage } from "./storage";
 import { insertCvSchema, insertUserSchema } from "@shared/schema";
 import bcrypt from "bcryptjs";
+import { runMigrations } from 'stripe-replit-sync';
+import { getStripeSync } from "./stripeClient";
+import { WebhookHandlers } from "./webhookHandlers";
+import { registerStripeRoutes } from "./stripe-routes";
 
 declare global {
   namespace Express {
@@ -12,7 +17,89 @@ declare global {
   }
 }
 
+async function initStripe() {
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
+    console.warn('DATABASE_URL not set, skipping Stripe initialization');
+    return;
+  }
+
+  try {
+    console.log('Initializing Stripe schema...');
+    await runMigrations({ 
+      databaseUrl
+    });
+    console.log('Stripe schema ready');
+
+    const stripeSync = await getStripeSync();
+
+    console.log('Setting up managed webhook...');
+    const webhookBaseUrl = `https://${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost'}`;
+    const { webhook, uuid } = await stripeSync.findOrCreateManagedWebhook(
+      `${webhookBaseUrl}/api/stripe/webhook`,
+      {
+        enabled_events: ['*'],
+        description: 'Managed webhook for Stripe sync',
+      }
+    );
+    console.log(`Webhook configured: ${webhook.url}`);
+
+    // Sync in background
+    stripeSync.syncBackfill()
+      .then(() => {
+        console.log('Stripe data synced');
+      })
+      .catch((err: any) => {
+        console.error('Error syncing Stripe data:', err);
+      });
+  } catch (error) {
+    console.error('Stripe initialization note:', error instanceof Error ? error.message : error);
+  }
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize Stripe on startup
+  await initStripe();
+
+  // Register Stripe webhook route BEFORE express.json()
+  app.post(
+    '/api/stripe/webhook/:uuid',
+    express.raw({ type: 'application/json' }),
+    async (req, res) => {
+      const signature = req.headers['stripe-signature'];
+
+      if (!signature) {
+        return res.status(400).json({ error: 'Missing stripe-signature' });
+      }
+
+      try {
+        const sig = Array.isArray(signature) ? signature[0] : signature;
+
+        if (!Buffer.isBuffer(req.body)) {
+          const errorMsg = 'STRIPE WEBHOOK ERROR: req.body is not a Buffer.';
+          console.error(errorMsg);
+          return res.status(500).json({ error: 'Webhook processing error' });
+        }
+
+        const { uuid } = req.params;
+        await WebhookHandlers.processWebhook(req.body as Buffer, sig, uuid);
+
+        res.status(200).json({ received: true });
+      } catch (error: any) {
+        console.error('Webhook error:', error.message);
+        res.status(400).json({ error: 'Webhook processing error' });
+      }
+    }
+  );
+
+  // Now apply JSON middleware for all other routes
+  app.use(express.json({
+    verify: (req, _res, buf) => {
+      req.rawBody = buf;
+    }
+  }));
+  app.use(express.urlencoded({ extended: false }));
   // Auth routes
   app.post("/api/auth/signup", async (req, res) => {
     try {
@@ -178,6 +265,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to delete CV" });
     }
   });
+
+  // Register Stripe payment routes
+  registerStripeRoutes(app);
 
   const httpServer = createServer(app);
   return httpServer;
