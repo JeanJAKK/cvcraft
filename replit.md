@@ -8,6 +8,13 @@ CVCraft is a professional online CV/Resume generator SaaS application that enabl
 
 ## Core Features
 
+### 0. **User Authentication**
+- Secure signup and login system
+- Password hashing with bcryptjs
+- Session-based authentication with express-session
+- Protected routes that redirect unauthenticated users
+- Authentication context for easy access throughout the app
+
 ### 1. **Home Page**
 - Engaging hero section with clear value proposition
 - Features showcase (6 key features: Real-time Preview, Multiple Templates, PDF Export, Mobile Responsive, ATS-Optimized, Secure & Private)
@@ -107,6 +114,12 @@ CVCraft is a professional online CV/Resume generator SaaS application that enabl
 ```
 
 ## API Endpoints
+
+### Authentication
+- `POST /api/auth/signup` - Create a new user account
+- `POST /api/auth/login` - Authenticate user with username and password
+- `POST /api/auth/logout` - Logout current user and destroy session
+- `GET /api/auth/me` - Get current authenticated user info
 
 ### Templates
 - `GET /api/templates` - Fetch all available templates
@@ -284,12 +297,18 @@ All frontend changes must follow `design_guidelines.md` for:
 - ✅ 64+ test IDs added for automation
 - ✅ Backend API fully functional
 - ✅ Real-time preview with debouncing
+- ✅ User authentication system implemented
+  - Secure signup and login pages
+  - Password hashing with bcryptjs
+  - Session-based authentication
+  - Protected routes with auth context
+  - Logout functionality
 
 ## Known Limitations
 - In-memory storage (data lost on server restart) - upgrade to PostgreSQL for production
-- No user authentication (single-user mode) - planned for future
 - Premium template purchases not yet integrated with Stripe
 - PDF export relies on browser rendering (may vary slightly)
+- Auth system stores passwords in-memory - needs database for production
 
 ## User Preferences
 - Uses in-memory storage as per original request

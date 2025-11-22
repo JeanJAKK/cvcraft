@@ -1,9 +1,97 @@
-import type { Express } from "express";
+import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertCvSchema } from "@shared/schema";
+import { insertCvSchema, insertUserSchema } from "@shared/schema";
+import bcrypt from "bcryptjs";
+
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: string;
+    }
+  }
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Auth routes
+  app.post("/api/auth/signup", async (req, res) => {
+    try {
+      const validatedData = insertUserSchema.parse(req.body);
+      const existingUser = await storage.getUserByUsername(validatedData.username);
+      if (existingUser) {
+        return res.status(400).json({ error: "Username already exists" });
+      }
+      const hashedPassword = await bcrypt.hash(validatedData.password, 10);
+      const user = await storage.createUser({
+        ...validatedData,
+        password: hashedPassword,
+      });
+      req.session!.userId = user.id;
+      res.status(201).json({
+        id: user.id,
+        username: user.username,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: "Failed to create account" });
+      }
+    }
+  });
+
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { username, password } = insertUserSchema.parse(req.body);
+      const user = await storage.getUserByUsername(username);
+      if (!user) {
+        return res.status(401).json({ error: "Invalid username or password" });
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(401).json({ error: "Invalid username or password" });
+      }
+      req.session!.userId = user.id;
+      res.json({
+        id: user.id,
+        username: user.username,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: "Failed to login" });
+      }
+    }
+  });
+
+  app.post("/api/auth/logout", (req, res) => {
+    req.session?.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ error: "Failed to logout" });
+      }
+      res.json({ message: "Logged out successfully" });
+    });
+  });
+
+  app.get("/api/auth/me", async (req, res) => {
+    try {
+      if (!req.session?.userId) {
+        return res.status(401).json({ error: "Not authenticated" });
+      }
+      const user = await storage.getUser(req.session.userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+      res.json({
+        id: user.id,
+        username: user.username,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get user" });
+    }
+  });
+
   // Template routes
   app.get("/api/templates", async (_req, res) => {
     try {

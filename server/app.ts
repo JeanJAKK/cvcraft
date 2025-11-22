@@ -7,6 +7,8 @@ import express, {
   NextFunction,
 } from "express";
 
+import session from "express-session";
+import createMemoryStore from "memorystore";
 import { registerRoutes } from "./routes";
 
 export function log(message: string, source = "express") {
@@ -27,6 +29,30 @@ declare module 'http' {
     rawBody: unknown
   }
 }
+
+declare module 'express-session' {
+  interface SessionData {
+    userId?: string;
+  }
+}
+
+const MemoryStore = createMemoryStore(session);
+const sessionStore = new MemoryStore({
+  checkPeriod: 86400000,
+});
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  store: sessionStore,
+  cookie: { 
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  }
+}));
+
 app.use(express.json({
   verify: (req, _res, buf) => {
     req.rawBody = buf;
