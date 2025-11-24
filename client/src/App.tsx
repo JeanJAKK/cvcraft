@@ -8,7 +8,6 @@ import Home from "@/pages/home";
 import TemplatesPage from "@/pages/templates";
 import BuilderPage from "@/pages/builder";
 import LoginPage from "@/pages/login";
-import SignupPage from "@/pages/signup";
 import NotFound from "@/pages/not-found";
 
 function LoadingScreen() {
@@ -51,7 +50,6 @@ function RouterContent() {
     return (
       <Switch>
         <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignupPage} />
         <Route component={LoginPage} />
       </Switch>
     );

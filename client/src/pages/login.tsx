@@ -84,16 +84,6 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="text-center text-sm">
-            <span className="text-muted-foreground">Don't have an account? </span>
-            <button
-              data-testid="link-signup"
-              onClick={() => navigate('/signup')}
-              className="text-primary hover:underline"
-            >
-              Sign up
-            </button>
-          </div>
         </div>
       </Card>
     </div>
