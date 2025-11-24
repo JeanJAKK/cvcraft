@@ -95,6 +95,62 @@ export class MemStorage implements IStorage {
         isPremium: false,
         price: null,
       },
+      {
+        id: "elegant",
+        name: "Elegant Refined",
+        category: "Classic",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "sidebar",
+        name: "Sidebar Modern",
+        category: "Modern",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "cards",
+        name: "Cards Style",
+        category: "Creative",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "twocolumn",
+        name: "Two Column",
+        category: "Modern",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "minimalist",
+        name: "Minimalist",
+        category: "Modern",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "corporate",
+        name: "Corporate",
+        category: "Classic",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "blue",
+        name: "Modern Blue",
+        category: "Modern",
+        isPremium: false,
+        price: null,
+      },
+      {
+        id: "clean",
+        name: "Clean Layout",
+        category: "Modern",
+        isPremium: false,
+        price: null,
+      },
     ];
 
     defaultTemplates.forEach(template => {

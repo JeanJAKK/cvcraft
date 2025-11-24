@@ -17,6 +17,14 @@ import { ExecutiveTemplate } from "@/components/cv-templates/executive-template"
 import { TechTemplate } from "@/components/cv-templates/tech-template";
 import { DesignerTemplate } from "@/components/cv-templates/designer-template";
 import { AcademicTemplate } from "@/components/cv-templates/academic-template";
+import { ElegantTemplate } from "@/components/cv-templates/elegant-template";
+import { SidebarTemplate } from "@/components/cv-templates/sidebar-template";
+import { CardsTemplate } from "@/components/cv-templates/cards-template";
+import { TwoColumnTemplate } from "@/components/cv-templates/twocolumn-template";
+import { MinimalistTemplate } from "@/components/cv-templates/minimalist-template";
+import { CorporateTemplate } from "@/components/cv-templates/corporate-template";
+import { BlueTemplate } from "@/components/cv-templates/blue-template";
+import { CleanTemplate } from "@/components/cv-templates/clean-template";
 
 function TemplateCardSkeleton() {
   return (
@@ -86,6 +94,22 @@ function getTemplateComponent(templateId: string) {
       return <DesignerTemplate {...defaultProps} />;
     case "academic":
       return <AcademicTemplate {...defaultProps} />;
+    case "elegant":
+      return <ElegantTemplate {...defaultProps} />;
+    case "sidebar":
+      return <SidebarTemplate {...defaultProps} />;
+    case "cards":
+      return <CardsTemplate {...defaultProps} />;
+    case "twocolumn":
+      return <TwoColumnTemplate {...defaultProps} />;
+    case "minimalist":
+      return <MinimalistTemplate {...defaultProps} />;
+    case "corporate":
+      return <CorporateTemplate {...defaultProps} />;
+    case "blue":
+      return <BlueTemplate {...defaultProps} />;
+    case "clean":
+      return <CleanTemplate {...defaultProps} />;
     default:
       return <ModernTemplate {...defaultProps} />;
   }
