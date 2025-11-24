@@ -1,15 +1,19 @@
 import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
 
 interface CVTemplateProps {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+  translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
   education: EducationEntry[];
   skills: string[];
 }
 
-export function CleanTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+export function CleanTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
   const formatDate = (date: string, current: boolean) => {
-    if (current) return "Present";
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+    if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -46,7 +50,7 @@ export function CleanTemplate({ personalInfo, experience, education, skills }: C
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-10">
-          <h2 className="text-xl font-bold mb-5">Experience</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.experience}</h2>
           <div className="space-y-6">
             {experience.map((exp) => (
               <div key={exp.id} className="pb-5 border-b border-gray-200 last:border-0">
@@ -69,7 +73,7 @@ export function CleanTemplate({ personalInfo, experience, education, skills }: C
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-10">
-          <h2 className="text-xl font-bold mb-5">Education</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.education}</h2>
           <div className="space-y-5">
             {education.map((edu) => (
               <div key={edu.id} className="pb-4 border-b border-gray-200 last:border-0">
@@ -89,7 +93,7 @@ export function CleanTemplate({ personalInfo, experience, education, skills }: C
       {/* Skills */}
       {skills.length > 0 && (
         <div>
-          <h2 className="text-xl font-bold mb-4">Skills</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.skills}</h2>
           <div className="grid grid-cols-2 gap-3">
             {skills.filter(s => s).map((skill, i) => (
               <div key={i} className="text-sm text-gray-700 flex items-center">

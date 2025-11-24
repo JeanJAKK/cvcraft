@@ -1,15 +1,19 @@
 import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
 
 interface CVTemplateProps {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+  translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
   education: EducationEntry[];
   skills: string[];
 }
 
-export function BlueTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+export function BlueTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
   const formatDate = (date: string, current: boolean) => {
-    if (current) return "Present";
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+    if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -39,7 +43,7 @@ export function BlueTemplate({ personalInfo, experience, education, skills }: CV
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-blue-600 mb-4">Experience</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.experience}</h2>
           <div className="space-y-5">
             {experience.map((exp) => (
               <div key={exp.id} className="border-l-4 border-blue-300 pl-4">
@@ -62,7 +66,7 @@ export function BlueTemplate({ personalInfo, experience, education, skills }: CV
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-blue-600 mb-4">Education</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.education}</h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id} className="border-l-4 border-blue-300 pl-4">
@@ -82,7 +86,7 @@ export function BlueTemplate({ personalInfo, experience, education, skills }: CV
       {/* Skills */}
       {skills.length > 0 && (
         <div>
-          <h2 className="text-lg font-bold text-blue-600 mb-3">Skills</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.skills}</h2>
           <div className="flex flex-wrap gap-2">
             {skills.filter(s => s).map((skill, i) => (
               <span key={i} className="bg-blue-100 text-blue-700 text-xs px-3 py-1.5 rounded-full">

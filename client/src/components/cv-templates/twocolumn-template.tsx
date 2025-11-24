@@ -1,15 +1,19 @@
 import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
 
 interface CVTemplateProps {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+  translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
   education: EducationEntry[];
   skills: string[];
 }
 
-export function TwoColumnTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+export function TwoColumnTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
   const formatDate = (date: string, current: boolean) => {
-    if (current) return "Present";
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+    if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -40,7 +44,7 @@ export function TwoColumnTemplate({ personalInfo, experience, education, skills 
         {/* Experience */}
         {experience.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-bold uppercase text-gray-800 mb-3">Experience</h2>
+            <h2 className="text-lg font-bold mb-4 text-gray-900">{t.experience}</h2>
             <div className="space-y-3">
               {experience.map((exp) => (
                 <div key={exp.id}>
@@ -64,7 +68,7 @@ export function TwoColumnTemplate({ personalInfo, experience, education, skills 
         {/* Education */}
         {education.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-bold uppercase text-gray-800 mb-3">Education</h2>
+            <h2 className="text-lg font-bold mb-4 text-gray-900">{t.education}</h2>
             <div className="space-y-3">
               {education.map((edu) => (
                 <div key={edu.id}>
@@ -82,7 +86,7 @@ export function TwoColumnTemplate({ personalInfo, experience, education, skills 
         {/* Skills */}
         {skills.length > 0 && (
           <div>
-            <h2 className="text-sm font-bold uppercase text-gray-800 mb-3">Skills</h2>
+            <h2 className="text-lg font-bold mb-4 text-gray-900">{t.skills}</h2>
             <div className="space-y-2">
               {skills.filter(s => s).map((skill, i) => (
                 <div key={i} className="flex items-center text-xs text-gray-700">

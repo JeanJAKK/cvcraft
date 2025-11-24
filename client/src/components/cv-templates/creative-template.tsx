@@ -1,15 +1,19 @@
 import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
 
 interface CVTemplateProps {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+  translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
   education: EducationEntry[];
   skills: string[];
 }
 
-export function CreativeTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+export function CreativeTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
   const formatDate = (date: string, current: boolean) => {
-    if (current) return "Present";
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+    if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });

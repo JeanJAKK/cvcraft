@@ -1,15 +1,19 @@
 import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
 
 interface CVTemplateProps {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+  translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
   education: EducationEntry[];
   skills: string[];
 }
 
-export function DesignerTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+export function DesignerTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
   const formatDate = (date: string, current: boolean) => {
-    if (current) return "Present";
+  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+    if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -52,7 +56,7 @@ export function DesignerTemplate({ personalInfo, experience, education, skills }
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-indigo-600 mb-3 uppercase tracking-widest">Experience</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.experience}</h2>
           <div className="space-y-6">
             {experience.map((exp, i) => (
               <div key={exp.id} className="relative pl-6">
@@ -78,7 +82,7 @@ export function DesignerTemplate({ personalInfo, experience, education, skills }
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-indigo-600 mb-3 uppercase tracking-widest">Education</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.education}</h2>
           <div className="space-y-6">
             {education.map((edu) => (
               <div key={edu.id} className="relative pl-6">
@@ -104,7 +108,7 @@ export function DesignerTemplate({ personalInfo, experience, education, skills }
       {/* Skills */}
       {skills.length > 0 && skills.some(s => s.trim()) && (
         <div>
-          <h2 className="text-lg font-bold text-indigo-600 mb-3 uppercase tracking-widest">Skills</h2>
+          <h2 className="text-lg font-bold mb-4 text-gray-900">{t.skills}</h2>
           <div className="flex flex-wrap gap-2">
             {skills.filter(s => s.trim()).map((skill, index) => (
               <span key={index} className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-medium">

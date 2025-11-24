@@ -6,11 +6,20 @@ interface CVTemplateProps {
   experience: ExperienceEntry[];
   education: EducationEntry[];
   skills: string[];
+  translations?: any;
 }
 
-export function ModernTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+export function ModernTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
+  const t = translations || {
+    present: 'Present',
+    experience: 'Work Experience',
+    education: 'Education',
+    skills: 'Skills',
+    summary: 'Professional Summary'
+  };
+
   const formatDate = (date: string, current: boolean) => {
-    if (current) return "Present";
+    if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -51,7 +60,7 @@ export function ModernTemplate({ personalInfo, experience, education, skills }: 
       {/* Summary */}
       {personalInfo.summary && (
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-blue-600 mb-3">Professional Summary</h2>
+          <h2 className="text-xl font-bold text-blue-600 mb-3">{t.summary}</h2>
           <p className="text-gray-700 leading-relaxed">{personalInfo.summary}</p>
         </div>
       )}
@@ -59,7 +68,7 @@ export function ModernTemplate({ personalInfo, experience, education, skills }: 
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-blue-600 mb-3">Work Experience</h2>
+          <h2 className="text-xl font-bold text-blue-600 mb-3">{t.experience}</h2>
           <div className="space-y-4">
             {experience.map((exp) => (
               <div key={exp.id}>
@@ -84,7 +93,7 @@ export function ModernTemplate({ personalInfo, experience, education, skills }: 
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-blue-600 mb-3">Education</h2>
+          <h2 className="text-xl font-bold text-blue-600 mb-3">{t.education}</h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id}>
@@ -109,7 +118,7 @@ export function ModernTemplate({ personalInfo, experience, education, skills }: 
       {/* Skills */}
       {skills.length > 0 && skills.some(s => s.trim()) && (
         <div>
-          <h2 className="text-xl font-bold text-blue-600 mb-3">Skills</h2>
+          <h2 className="text-xl font-bold text-blue-600 mb-3">{t.skills}</h2>
           <div className="flex flex-wrap gap-2">
             {skills.filter(s => s.trim()).map((skill, index) => (
               <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">

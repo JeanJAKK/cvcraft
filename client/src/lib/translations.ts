@@ -40,6 +40,44 @@ export const translations = {
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
     contactSupport: 'Contact Support',
+    
+    // CV Form & Templates
+    personalInformation: 'Personal Information',
+    fullName: 'Full Name',
+    email: 'Email',
+    phone: 'Phone',
+    location: 'Location',
+    summary: 'Professional Summary',
+    profilePhoto: 'Profile Photo',
+    uploadPhoto: 'Upload Photo',
+    removePhoto: 'Remove Photo',
+    
+    experience: 'Experience',
+    addExperience: 'Add Experience',
+    company: 'Company',
+    position: 'Position',
+    startDate: 'Start Date',
+    endDate: 'End Date',
+    currentlyWorking: 'Currently Working Here',
+    description: 'Description',
+    
+    education: 'Education',
+    addEducation: 'Add Education',
+    school: 'School/University',
+    degree: 'Degree',
+    currentlyStudying: 'Currently Studying',
+    
+    skills: 'Skills',
+    addSkill: 'Add Skill',
+    skillPlaceholder: 'Enter a skill',
+    
+    save: 'Save',
+    saveCV: 'Save CV',
+    export: 'Export to PDF',
+    preview: 'Preview',
+    edit: 'Edit',
+    
+    present: 'Present',
   },
   fr: {
     // Navigation
@@ -80,5 +118,43 @@ export const translations = {
     privacyPolicy: 'Politique de Confidentialité',
     termsOfService: 'Conditions d\'Utilisation',
     contactSupport: 'Contacter le Support',
+    
+    // CV Form & Templates
+    personalInformation: 'Informations Personnelles',
+    fullName: 'Nom Complet',
+    email: 'E-mail',
+    phone: 'Téléphone',
+    location: 'Localisation',
+    summary: 'Résumé Professionnel',
+    profilePhoto: 'Photo de Profil',
+    uploadPhoto: 'Télécharger une Photo',
+    removePhoto: 'Supprimer la Photo',
+    
+    experience: 'Expérience',
+    addExperience: 'Ajouter une Expérience',
+    company: 'Entreprise',
+    position: 'Poste',
+    startDate: 'Date de Début',
+    endDate: 'Date de Fin',
+    currentlyWorking: 'Actuellement en Poste',
+    description: 'Description',
+    
+    education: 'Éducation',
+    addEducation: 'Ajouter une Éducation',
+    school: 'École/Université',
+    degree: 'Diplôme',
+    currentlyStudying: 'Actuellement Étudiant',
+    
+    skills: 'Compétences',
+    addSkill: 'Ajouter une Compétence',
+    skillPlaceholder: 'Entrez une compétence',
+    
+    save: 'Enregistrer',
+    saveCV: 'Enregistrer le CV',
+    export: 'Exporter en PDF',
+    preview: 'Aperçu',
+    edit: 'Modifier',
+    
+    present: 'Actuel',
   }
 };
