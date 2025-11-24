@@ -18,14 +18,25 @@ export function ClassicTemplate({ personalInfo, experience, education, skills }:
   return (
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header - Centered */}
-      <div className="text-center border-b-2 border-gray-800 pb-4 mb-6">
-        <h1 className="text-3xl font-serif font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
-        <div className="text-sm text-gray-600 space-x-3">
-          <span>{personalInfo.email || "email@example.com"}</span>
-          <span>•</span>
-          <span>{personalInfo.phone || "+1 234 567 890"}</span>
-          <span>•</span>
-          <span>{personalInfo.location || "Location"}</span>
+      <div className="border-b-2 border-gray-800 pb-4 mb-6">
+        <div className="flex flex-col items-center gap-4">
+          {personalInfo.profilePhoto && (
+            <img 
+              src={personalInfo.profilePhoto} 
+              alt="Profile" 
+              className="w-24 h-24 rounded-lg object-cover"
+            />
+          )}
+          <div className="text-center">
+            <h1 className="text-3xl font-serif font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <div className="text-sm text-gray-600 space-x-3">
+              <span>{personalInfo.email || "email@example.com"}</span>
+              <span>•</span>
+              <span>{personalInfo.phone || "+1 234 567 890"}</span>
+              <span>•</span>
+              <span>{personalInfo.location || "Location"}</span>
+            </div>
+          </div>
         </div>
       </div>
 

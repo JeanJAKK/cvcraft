@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Plus, X } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { z } from "zod";
+import { useState } from "react";
 
 interface CVFormProps {
   initialData: {
@@ -25,6 +26,8 @@ interface CVFormProps {
 }
 
 export function CVForm({ initialData, onUpdate }: CVFormProps) {
+  const [photoPreview, setPhotoPreview] = useState<string | undefined>(initialData.personalInfo.profilePhoto);
+
   const form = useForm<z.infer<typeof cvDataSchema>>({
     resolver: zodResolver(cvDataSchema),
     defaultValues: initialData,
@@ -40,6 +43,24 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
       onUpdate(data as z.infer<typeof cvDataSchema>);
     }
   });
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setValue("personalInfo.profilePhoto", base64String);
+        setPhotoPreview(base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    setValue("personalInfo.profilePhoto", "");
+    setPhotoPreview(undefined);
+  };
 
   const addExperience = () => {
     const newExp: ExperienceEntry = {
@@ -174,6 +195,38 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
                 </FormItem>
               )}
             />
+
+            <FormItem>
+              <FormLabel>Profile Photo (Passport)</FormLabel>
+              <FormControl>
+                <div className="space-y-2">
+                  {photoPreview && (
+                    <div className="flex items-center gap-3">
+                      <img src={photoPreview} alt="Profile" className="w-20 h-20 rounded-lg object-cover" />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={removePhoto}
+                        className="gap-1"
+                        data-testid="button-remove-photo"
+                      >
+                        <X className="h-4 w-4" />
+                        Remove
+                      </Button>
+                    </div>
+                  )}
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    data-testid="input-profile-photo"
+                    className="cursor-pointer"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           </CardContent>
         </Card>
 

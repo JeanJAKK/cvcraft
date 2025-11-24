@@ -20,19 +20,30 @@ export function ModernTemplate({ personalInfo, experience, education, skills }: 
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header */}
       <div className="border-b-4 border-blue-600 pb-6 mb-6">
-        <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-          <div className="flex items-center gap-1">
-            <Mail className="h-4 w-4" />
-            <span>{personalInfo.email || "email@example.com"}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Phone className="h-4 w-4" />
-            <span>{personalInfo.phone || "+1 234 567 890"}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <MapPin className="h-4 w-4" />
-            <span>{personalInfo.location || "Location"}</span>
+        <div className="flex gap-6 items-start">
+          {personalInfo.profilePhoto && (
+            <img 
+              src={personalInfo.profilePhoto} 
+              alt="Profile" 
+              className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
+            />
+          )}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+              <div className="flex items-center gap-1">
+                <Mail className="h-4 w-4" />
+                <span>{personalInfo.email || "email@example.com"}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Phone className="h-4 w-4" />
+                <span>{personalInfo.phone || "+1 234 567 890"}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <MapPin className="h-4 w-4" />
+                <span>{personalInfo.location || "Location"}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

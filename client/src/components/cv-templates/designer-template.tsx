@@ -19,7 +19,15 @@ export function DesignerTemplate({ personalInfo, experience, education, skills }
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header - Design Forward */}
       <div className="mb-8 flex gap-8">
-        <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full"></div>
+        {personalInfo.profilePhoto ? (
+          <img 
+            src={personalInfo.profilePhoto} 
+            alt="Profile" 
+            className="w-24 h-24 rounded-full object-cover flex-shrink-0"
+          />
+        ) : (
+          <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex-shrink-0"></div>
+        )}
         <div className="flex-1">
           <h1 className="text-4xl font-bold mb-1">{personalInfo.fullName || "Your Name"}</h1>
           <div className="h-1 w-12 bg-indigo-500 mb-3"></div>

@@ -28,6 +28,7 @@ export interface PersonalInfo {
   phone: string;
   location: string;
   summary: string;
+  profilePhoto?: string;
 }
 
 export interface ExperienceEntry {
@@ -57,6 +58,7 @@ export const personalInfoSchema = z.object({
   phone: z.string().min(1, "Phone is required"),
   location: z.string().min(1, "Location is required"),
   summary: z.string().min(10, "Summary should be at least 10 characters"),
+  profilePhoto: z.string().optional(),
 });
 
 export const experienceEntrySchema = z.object({

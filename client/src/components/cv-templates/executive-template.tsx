@@ -19,13 +19,24 @@ export function ExecutiveTemplate({ personalInfo, experience, education, skills 
     <div className="bg-gradient-to-b from-gray-900 to-gray-800 text-white p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header - Professional Dark */}
       <div className="border-b-2 border-amber-500 pb-6 mb-6">
-        <h1 className="text-5xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
-        <div className="flex flex-wrap gap-4 text-sm text-gray-300">
-          <span>{personalInfo.email || "email@example.com"}</span>
-          <span>•</span>
-          <span>{personalInfo.phone || "+1 234 567 890"}</span>
-          <span>•</span>
-          <span>{personalInfo.location || "Location"}</span>
+        <div className="flex gap-6 items-start">
+          {personalInfo.profilePhoto && (
+            <img 
+              src={personalInfo.profilePhoto} 
+              alt="Profile" 
+              className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
+            />
+          )}
+          <div className="flex-1">
+            <h1 className="text-5xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <div className="flex flex-wrap gap-4 text-sm text-gray-300">
+              <span>{personalInfo.email || "email@example.com"}</span>
+              <span>•</span>
+              <span>{personalInfo.phone || "+1 234 567 890"}</span>
+              <span>•</span>
+              <span>{personalInfo.location || "Location"}</span>
+            </div>
+          </div>
         </div>
       </div>
 
