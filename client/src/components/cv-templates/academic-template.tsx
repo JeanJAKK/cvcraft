@@ -18,11 +18,22 @@ export function AcademicTemplate({ personalInfo, experience, education, skills }
   return (
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header - Academic */}
-      <div className="text-center border-b-4 border-blue-900 pb-6 mb-8">
-        <h1 className="text-3xl font-serif font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
-        <div className="text-sm text-gray-600 space-y-1">
-          <p>{personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"}</p>
-          <p>{personalInfo.location || "Location"}</p>
+      <div className="border-b-4 border-blue-900 pb-6 mb-8">
+        <div className="flex flex-col items-center gap-4">
+          {personalInfo.profilePhoto && (
+            <img 
+              src={personalInfo.profilePhoto} 
+              alt="Profile" 
+              className="w-24 h-24 rounded-lg object-cover"
+            />
+          )}
+          <div className="text-center">
+            <h1 className="text-3xl font-serif font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <div className="text-sm text-gray-600 space-y-1">
+              <p>{personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"}</p>
+              <p>{personalInfo.location || "Location"}</p>
+            </div>
+          </div>
         </div>
       </div>
 

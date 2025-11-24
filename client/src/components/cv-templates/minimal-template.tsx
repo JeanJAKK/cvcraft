@@ -18,10 +18,19 @@ export function MinimalTemplate({ personalInfo, experience, education, skills }:
   return (
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header - Minimal */}
-      <div className="mb-8">
-        <h1 className="text-5xl font-light mb-3">{personalInfo.fullName || "Your Name"}</h1>
-        <div className="text-sm text-gray-500 font-light">
-          {personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"} • {personalInfo.location || "Location"}
+      <div className="mb-8 flex gap-6 items-start">
+        {personalInfo.profilePhoto && (
+          <img 
+            src={personalInfo.profilePhoto} 
+            alt="Profile" 
+            className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+          />
+        )}
+        <div className="flex-1">
+          <h1 className="text-5xl font-light mb-3">{personalInfo.fullName || "Your Name"}</h1>
+          <div className="text-sm text-gray-500 font-light">
+            {personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"} • {personalInfo.location || "Location"}
+          </div>
         </div>
       </div>
 

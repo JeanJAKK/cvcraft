@@ -19,13 +19,24 @@ export function CreativeTemplate({ personalInfo, experience, education, skills }
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header - Colorful */}
       <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6 rounded-lg mb-6">
-        <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
-        <div className="flex flex-wrap gap-3 text-sm">
-          <span>{personalInfo.email || "email@example.com"}</span>
-          <span>•</span>
-          <span>{personalInfo.phone || "+1 234 567 890"}</span>
-          <span>•</span>
-          <span>{personalInfo.location || "Location"}</span>
+        <div className="flex gap-6 items-start">
+          {personalInfo.profilePhoto && (
+            <img 
+              src={personalInfo.profilePhoto} 
+              alt="Profile" 
+              className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+            />
+          )}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span>{personalInfo.email || "email@example.com"}</span>
+              <span>•</span>
+              <span>{personalInfo.phone || "+1 234 567 890"}</span>
+              <span>•</span>
+              <span>{personalInfo.location || "Location"}</span>
+            </div>
+          </div>
         </div>
       </div>
 
