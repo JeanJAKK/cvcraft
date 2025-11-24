@@ -66,16 +66,35 @@ export default function BuilderPage() {
         description: "Your CV has been saved successfully.",
       });
     },
-    onError: () => {
+    onError: (error: any) => {
+      // Extract error message from server response
+      const errorMessage = error?.response?.data?.error || error?.message || "Failed to save CV. Please try again.";
       toast({
-        title: "Error",
-        description: "Failed to save CV. Please try again.",
+        title: "Error saving CV",
+        description: errorMessage,
         variant: "destructive",
       });
     },
   });
 
   const handleSave = () => {
+    // Validate required fields
+    const missingFields = [];
+    if (!cvData.personalInfo.fullName?.trim()) missingFields.push("Full Name");
+    if (!cvData.personalInfo.email?.trim()) missingFields.push("Email");
+    if (!cvData.personalInfo.phone?.trim()) missingFields.push("Phone");
+    if (!cvData.personalInfo.location?.trim()) missingFields.push("Location");
+    if (!cvData.personalInfo.summary?.trim() || cvData.personalInfo.summary.length < 10) missingFields.push("Professional Summary (min 10 characters)");
+
+    if (missingFields.length > 0) {
+      toast({
+        title: "Required fields missing",
+        description: `Please fill in the following fields: ${missingFields.join(", ")}`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     saveMutation.mutate(cvData);
   };
 
