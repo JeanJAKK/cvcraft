@@ -99,7 +99,7 @@ function TemplateCard({ template }: { template: Template }) {
     >
       <CardContent className="p-0">
         {/* Template Preview - Actual Design */}
-        <div className="h-32 bg-white border-b overflow-hidden relative scale-50 origin-top-left" style={{ transformOrigin: "top left", width: "200%" }}>
+        <div className="aspect-[8.5/11] bg-white border-b overflow-hidden relative scale-50 origin-top-left" style={{ transformOrigin: "top left", width: "200%" }}>
           {getTemplateComponent(template.id)}
           {template.isPremium && (
             <div className="absolute top-3 right-3 z-10">
@@ -120,9 +120,9 @@ function TemplateCard({ template }: { template: Template }) {
         </div>
       </CardContent>
       
-      <CardFooter className="flex flex-col p-4">
-        <div className="w-full">
-          <h3 className="font-semibold text-lg mb-1" data-testid={`text-template-name-${template.id}`}>
+      <CardFooter className="flex flex-col gap-2 p-3">
+        <div className="w-full space-y-1">
+          <h3 className="font-semibold text-lg" data-testid={`text-template-name-${template.id}`}>
             {template.name}
           </h3>
           <div className="flex items-center justify-between">
