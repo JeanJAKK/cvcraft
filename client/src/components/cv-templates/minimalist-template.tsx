@@ -1,7 +1,7 @@
 import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
 
 interface CVTemplateProps {
-  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+
   translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
