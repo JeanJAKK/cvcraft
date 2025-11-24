@@ -46,9 +46,7 @@ export function ClassicTemplate({ personalInfo, experience, education, skills, t
       {/* Summary */}
       {personalInfo.summary && (
         <div className="mb-6">
-          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">
-            Professional Summary
-          </h2>
+          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">{t.summary}</h2>
           <p className="text-gray-700 leading-relaxed text-sm">{personalInfo.summary}</p>
         </div>
       )}
@@ -56,9 +54,7 @@ export function ClassicTemplate({ personalInfo, experience, education, skills, t
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">
-            Professional Experience
-          </h2>
+          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">{t.experience}</h2>
           <div className="space-y-4">
             {experience.map((exp) => (
               <div key={exp.id}>
@@ -81,9 +77,7 @@ export function ClassicTemplate({ personalInfo, experience, education, skills, t
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">
-            Education
-          </h2>
+          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">{t.education}</h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id}>
@@ -106,9 +100,7 @@ export function ClassicTemplate({ personalInfo, experience, education, skills, t
       {/* Skills */}
       {skills.length > 0 && skills.some(s => s.trim()) && (
         <div>
-          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">
-            Skills
-          </h2>
+          <h2 className="text-lg font-serif font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">{t.skills}</h2>
           <p className="text-gray-700 text-sm">
             {skills.filter(s => s.trim()).join(" • ")}
           </p>

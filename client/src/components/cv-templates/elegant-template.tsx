@@ -43,7 +43,7 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">EXPERIENCE</h2>
+          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">{t.experience}</h2>
           <div className="space-y-5">
             {experience.map((exp) => (
               <div key={exp.id}>
@@ -66,7 +66,7 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">EDUCATION</h2>
+          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">{t.education}</h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id}>
@@ -86,7 +86,7 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
       {/* Skills */}
       {skills.length > 0 && (
         <div>
-          <h2 className="text-lg font-light tracking-wide mb-3 text-gray-800">SKILLS</h2>
+          <h2 className="text-lg font-light tracking-wide mb-3 text-gray-800">{t.skills}</h2>
           <div className="flex flex-wrap gap-2">
             {skills.filter(s => s).map((skill, i) => (
               <span key={i} className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded">

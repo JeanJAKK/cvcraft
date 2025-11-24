@@ -59,9 +59,7 @@ export function CreativeTemplate({ personalInfo, experience, education, skills, 
       {experience.length > 0 && (
         <div className="mb-6">
           <h2 className="text-xl font-bold text-purple-600 mb-3 flex items-center gap-2">
-            <div className="h-1 w-6 bg-purple-600"></div>
-            Experience
-          </h2>
+            <div className="h-1 w-6 bg-purple-600"></div>{t.experience}</h2>
           <div className="space-y-4">
             {experience.map((exp, i) => (
               <div key={exp.id} className="border-l-4 border-pink-500 pl-4">
@@ -87,9 +85,7 @@ export function CreativeTemplate({ personalInfo, experience, education, skills, 
       {education.length > 0 && (
         <div className="mb-6">
           <h2 className="text-xl font-bold text-purple-600 mb-3 flex items-center gap-2">
-            <div className="h-1 w-6 bg-purple-600"></div>
-            Education
-          </h2>
+            <div className="h-1 w-6 bg-purple-600"></div>{t.education}</h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id} className="border-l-4 border-pink-500 pl-4">
@@ -115,9 +111,7 @@ export function CreativeTemplate({ personalInfo, experience, education, skills, 
       {skills.length > 0 && skills.some(s => s.trim()) && (
         <div>
           <h2 className="text-xl font-bold text-purple-600 mb-3 flex items-center gap-2">
-            <div className="h-1 w-6 bg-purple-600"></div>
-            Skills
-          </h2>
+            <div className="h-1 w-6 bg-purple-600"></div>{t.skills}</h2>
           <div className="flex flex-wrap gap-2">
             {skills.filter(s => s.trim()).map((skill, index) => (
               <span key={index} className="bg-gradient-to-r from-purple-200 to-pink-200 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">

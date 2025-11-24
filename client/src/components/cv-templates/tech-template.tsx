@@ -52,7 +52,7 @@ export function TechTemplate({ personalInfo, experience, education, skills, tran
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-cyan-600 mb-3 font-mono">// Experience</h2>
+          <h2 className="text-lg font-bold text-cyan-600 mb-3 font-mono">// {t.experience}</h2>
           <div className="space-y-4">
             {experience.map((exp) => (
               <div key={exp.id} className="bg-gray-50 p-3 rounded border-l-2 border-cyan-500">
@@ -77,7 +77,7 @@ export function TechTemplate({ personalInfo, experience, education, skills, tran
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-cyan-600 mb-3 font-mono">// Education</h2>
+          <h2 className="text-lg font-bold text-cyan-600 mb-3 font-mono">// {t.education}</h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id} className="bg-gray-50 p-3 rounded border-l-2 border-cyan-500">
@@ -102,7 +102,7 @@ export function TechTemplate({ personalInfo, experience, education, skills, tran
       {/* Skills */}
       {skills.length > 0 && skills.some(s => s.trim()) && (
         <div>
-          <h2 className="text-lg font-bold text-cyan-600 mb-3 font-mono">// Skills</h2>
+          <h2 className="text-lg font-bold text-cyan-600 mb-3 font-mono">// {t.skills}</h2>
           <div className="flex flex-wrap gap-2">
             {skills.filter(s => s.trim()).map((skill, index) => (
               <span key={index} className="bg-cyan-100 text-cyan-700 px-3 py-1 rounded text-sm font-mono">
