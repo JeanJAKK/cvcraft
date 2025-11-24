@@ -169,7 +169,7 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
               <span className="font-semibold">CVCraft</span>
-              <span className="text-muted-foreground">© 2024</span>
+              <span className="text-muted-foreground">© {new Date().getFullYear()} Jean</span>
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <button className="hover-elevate px-2 py-1 rounded-md" data-testid="link-privacy">
