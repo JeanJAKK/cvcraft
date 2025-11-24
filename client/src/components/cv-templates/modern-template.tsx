@@ -39,15 +39,15 @@ export function ModernTemplate({ personalInfo, experience, education, skills, tr
             <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
             <div className="flex flex-wrap gap-4 text-sm text-gray-600">
               <div className="flex items-center gap-1">
-                <Mail className="h-4 w-4" />
+                <Mail className="h-4 w-4 flex-shrink-0 mt-0.5" />
                 <span>{personalInfo.email || "email@example.com"}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Phone className="h-4 w-4" />
+                <Phone className="h-4 w-4 flex-shrink-0 mt-0.5" />
                 <span>{personalInfo.phone || "+1 234 567 890"}</span>
               </div>
               <div className="flex items-center gap-1">
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
                 <span>{personalInfo.location || "Location"}</span>
               </div>
             </div>
