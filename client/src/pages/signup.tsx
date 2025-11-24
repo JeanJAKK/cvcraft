@@ -20,8 +20,8 @@ export default function SignupPage() {
 
     if (password !== confirmPassword) {
       toast({
-        title: 'Error',
-        description: 'Passwords do not match',
+        title: '⚠️ Passwords Mismatch',
+        description: 'Make sure both passwords are identical.',
         variant: 'destructive',
       });
       return;
@@ -29,8 +29,8 @@ export default function SignupPage() {
 
     if (password.length < 6) {
       toast({
-        title: 'Error',
-        description: 'Password must be at least 6 characters',
+        title: '🔐 Weak Password',
+        description: 'Password must be at least 6 characters for security.',
         variant: 'destructive',
       });
       return;
@@ -41,14 +41,14 @@ export default function SignupPage() {
     try {
       await signup(username, password);
       toast({
-        title: 'Success',
-        description: 'Account created successfully',
+        title: '✨ Welcome to CVCraft!',
+        description: 'Account created! Ready to build your professional CV?',
       });
       navigate('/');
     } catch (error) {
       toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to create account',
+        title: '❌ Signup Failed',
+        description: error instanceof Error ? error.message : 'Username already exists or invalid input.',
         variant: 'destructive',
       });
     } finally {

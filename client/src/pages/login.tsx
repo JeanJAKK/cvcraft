@@ -21,14 +21,14 @@ export default function LoginPage() {
     try {
       await login(username, password);
       toast({
-        title: 'Success',
-        description: 'Logged in successfully',
+        title: '🎉 Welcome Back!',
+        description: 'You\'re logged in. Let\'s create an amazing CV!',
       });
       navigate('/');
     } catch (error) {
       toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to login',
+        title: '❌ Login Failed',
+        description: error instanceof Error ? error.message : 'Invalid username or password. Please try again.',
         variant: 'destructive',
       });
     } finally {
