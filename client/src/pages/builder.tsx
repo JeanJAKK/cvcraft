@@ -5,14 +5,6 @@ import { CVForm } from "@/components/cv-form";
 import { CVPreview } from "@/components/cv-preview";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Download, Save, Eye, Edit, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -25,10 +17,8 @@ import { z } from "zod";
 export default function BuilderPage() {
   const [location] = useLocation();
   const { toast } = useToast();
-  const [showExportDialog, setShowExportDialog] = useState(false);
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
   const [currentCVId, setCurrentCVId] = useState<string | null>(null);
-  const [isExporting, setIsExporting] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   // Parse template from URL
@@ -98,22 +88,11 @@ export default function BuilderPage() {
     saveMutation.mutate(cvData);
   };
 
-  const handleExport = () => {
-    setShowExportDialog(true);
-  };
-
-  const handleDownloadPDF = async () => {
+  const handleExport = async () => {
     try {
-      setIsExporting(true);
-      
-      // Find the CV preview element
       const previewElement = document.querySelector('[data-testid="cv-preview"]') as HTMLElement;
-      
-      if (!previewElement) {
-        throw new Error("Preview element not found");
-      }
+      if (!previewElement) throw new Error("Preview not found");
 
-      // Generate filename from user's name or default
       const filename = cvData.personalInfo.fullName 
         ? `${cvData.personalInfo.fullName.replace(/\s+/g, "_")}_CV.pdf`
         : "CV.pdf";
@@ -121,19 +100,15 @@ export default function BuilderPage() {
       await exportToPDF(previewElement, filename);
 
       toast({
-        title: "PDF Downloaded",
-        description: "Your CV has been downloaded successfully.",
+        title: "CV Downloaded Successfully",
+        description: "Your PDF is ready!",
       });
-      
-      setShowExportDialog(false);
     } catch (error) {
       toast({
         title: "Export Failed",
-        description: "Failed to export PDF. Please try again.",
+        description: error instanceof Error ? error.message : "Please try again",
         variant: "destructive",
       });
-    } finally {
-      setIsExporting(false);
     }
   };
 
@@ -264,55 +239,6 @@ export default function BuilderPage() {
         </Button>
       </div>
 
-      {/* Export Dialog */}
-      <Dialog open={showExportDialog} onOpenChange={setShowExportDialog}>
-        <DialogContent data-testid="dialog-export">
-          <DialogHeader>
-            <DialogTitle>Export to PDF</DialogTitle>
-            <DialogDescription>
-              Download your CV as a high-quality PDF file ready for job applications.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="py-4">
-            <div className="aspect-[8.5/11] bg-muted rounded-md border flex items-center justify-center">
-              <div className="text-center text-muted-foreground">
-                <Download className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                <p className="text-sm">Your CV is ready to download</p>
-                <p className="text-xs mt-1">A4 format, high quality PDF</p>
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowExportDialog(false)}
-              disabled={isExporting}
-              data-testid="button-cancel-export"
-            >
-              Cancel
-            </Button>
-            <Button 
-              onClick={handleDownloadPDF}
-              disabled={isExporting}
-              data-testid="button-confirm-export"
-            >
-              {isExporting ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Exporting...
-                </>
-              ) : (
-                <>
-                  <Download className="h-4 w-4 mr-2" />
-                  Download PDF
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
