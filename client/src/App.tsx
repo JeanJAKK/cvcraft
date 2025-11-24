@@ -40,7 +40,7 @@ function ProtectedRoute({ component: Component }: { component: React.ComponentTy
   return <Component />;
 }
 
-function Router() {
+function RouterContent() {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
@@ -73,7 +73,7 @@ function App() {
       <TooltipProvider>
         <AuthProvider>
           <Toaster />
-          <Router />
+          <RouterContent />
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
