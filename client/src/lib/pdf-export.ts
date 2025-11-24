@@ -6,21 +6,45 @@ export async function exportToPDF(
   filename: string = "cv.pdf"
 ): Promise<void> {
   try {
-    // Clone element to avoid modifying original
-    const clonedElement = element.cloneNode(true) as HTMLElement;
+    // Find the inner template element (unscaled)
+    const innerElement = element.querySelector("div:first-child") as HTMLElement || element;
     
-    // Capture the element as canvas
-    const canvas = await html2canvas(clonedElement, {
+    // Create a temporary container with proper styling for PDF export
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.left = "-9999px";
+    container.style.top = "-9999px";
+    container.style.width = "210mm";
+    container.style.zIndex = "-1";
+    
+    // Clone the template without transform
+    const clone = innerElement.cloneNode(true) as HTMLElement;
+    clone.style.transform = "none";
+    clone.style.transformOrigin = "none";
+    
+    container.appendChild(clone);
+    document.body.appendChild(container);
+    
+    // Wait a moment for rendering
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    // Capture as canvas
+    const canvas = await html2canvas(container, {
       scale: 2,
       useCORS: true,
       logging: false,
       backgroundColor: "#ffffff",
       allowTaint: true,
+      imageTimeout: 0,
+      windowHeight: 1189, // A4 height at 96dpi
     });
 
-    // Calculate dimensions for A4 page (210mm x 297mm)
-    const pdfWidth = 210; // A4 width in mm
-    const pdfHeight = 297; // A4 height in mm
+    // Remove temporary container
+    document.body.removeChild(container);
+
+    // A4 dimensions in mm
+    const pdfWidth = 210;
+    const pdfHeight = 297;
     
     // Calculate image dimensions
     const imgWidth = pdfWidth;
