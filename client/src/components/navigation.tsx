@@ -1,10 +1,13 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSwitcher } from "./language-switcher";
+import { useTranslations } from "@/hooks/use-translations";
 import { FileText, Sparkles } from "lucide-react";
 
 export function Navigation() {
   const [location] = useLocation();
+  const t = useTranslations();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -22,7 +25,7 @@ export function Navigation() {
               variant={location === "/templates" ? "secondary" : "ghost"}
               className="font-medium"
             >
-              Templates
+              {t.templates}
             </Button>
           </Link>
           <Link href="/builder" data-testid="link-builder">
@@ -30,17 +33,18 @@ export function Navigation() {
               variant={location === "/builder" ? "secondary" : "ghost"}
               className="font-medium"
             >
-              My CVs
+              {t.myCVs}
             </Button>
           </Link>
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
           <Link href="/builder" data-testid="link-upgrade">
             <Button variant="default" className="gap-2">
               <Sparkles className="h-4 w-4" />
-              <span className="hidden sm:inline">Get Started</span>
+              <span className="hidden sm:inline">{t.getStarted}</span>
             </Button>
           </Link>
         </div>

@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navigation } from "@/components/navigation";
+import { useTranslations } from "@/hooks/use-translations";
 import { 
   FileText, 
   Sparkles, 
@@ -13,6 +14,8 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+  const t = useTranslations();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
@@ -28,11 +31,10 @@ export default function Home() {
         <div className="relative z-10 container mx-auto px-4 py-24 md:py-32">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              Create Your Professional CV in Minutes
+              {t.heroTitle}
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-              Build stunning, ATS-friendly resumes with our intuitive online builder. 
-              Choose from professional templates and export to PDF instantly.
+              {t.heroDescription}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
@@ -43,7 +45,7 @@ export default function Home() {
                   className="gap-2 text-base px-8 bg-primary/90 backdrop-blur-sm border border-primary-border"
                 >
                   <Sparkles className="h-5 w-5" />
-                  Get Started Free
+                  {t.getStartedFree}
                 </Button>
               </Link>
               <Link href="/templates" data-testid="button-view-templates">
@@ -53,14 +55,14 @@ export default function Home() {
                   className="gap-2 text-base px-8 bg-background/20 backdrop-blur-sm text-white border-white/30 hover:bg-background/30"
                 >
                   <Eye className="h-5 w-5" />
-                  View Templates
+                  {t.viewTemplates}
                 </Button>
               </Link>
             </div>
 
             <div className="pt-8">
               <p className="text-white/70 text-sm">
-                Join 50,000+ professionals who trust CVCraft
+                {t.trustMessage}
               </p>
             </div>
           </div>
@@ -72,10 +74,10 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-              Everything You Need to Stand Out
+              {t.featuresTitle}
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Powerful features designed to help you create the perfect CV
+              {t.featuresSubtitle}
             </p>
           </div>
 
@@ -85,10 +87,9 @@ export default function Home() {
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center">
                   <Zap className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Real-Time Preview</h3>
+                <h3 className="text-xl font-semibold">{t.realtimePreview}</h3>
                 <p className="text-muted-foreground">
-                  See your CV come to life as you type. Instant visual feedback 
-                  with every change you make.
+                  {t.realtimePreviewDesc}
                 </p>
               </CardContent>
             </Card>
@@ -98,10 +99,9 @@ export default function Home() {
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center">
                   <FileText className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Professional Templates</h3>
+                <h3 className="text-xl font-semibold">{t.professionalTemplates}</h3>
                 <p className="text-muted-foreground">
-                  Choose from beautifully designed templates. 3 free options plus 
-                  premium designs for every industry.
+                  {t.professionalTemplatesDesc}
                 </p>
               </CardContent>
             </Card>
@@ -111,10 +111,9 @@ export default function Home() {
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center">
                   <Download className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Instant PDF Export</h3>
+                <h3 className="text-xl font-semibold">{t.instantPDFExport}</h3>
                 <p className="text-muted-foreground">
-                  Download your CV as a high-quality PDF with a single click. 
-                  Perfect for job applications.
+                  {t.instantPDFExportDesc}
                 </p>
               </CardContent>
             </Card>
@@ -124,10 +123,9 @@ export default function Home() {
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center">
                   <Eye className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Mobile Friendly</h3>
+                <h3 className="text-xl font-semibold">{t.mobileFriendly}</h3>
                 <p className="text-muted-foreground">
-                  Build your CV on any device. Seamless experience on desktop, 
-                  tablet, and mobile.
+                  {t.mobileFriendlyDesc}
                 </p>
               </CardContent>
             </Card>
@@ -137,10 +135,9 @@ export default function Home() {
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center">
                   <CheckCircle2 className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">ATS Optimized</h3>
+                <h3 className="text-xl font-semibold">{t.atsOptimized}</h3>
                 <p className="text-muted-foreground">
-                  All templates are designed to pass Applicant Tracking Systems 
-                  with ease.
+                  {t.atsOptimizedDesc}
                 </p>
               </CardContent>
             </Card>
@@ -150,10 +147,9 @@ export default function Home() {
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center">
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Privacy First</h3>
+                <h3 className="text-xl font-semibold">{t.privacyFirst}</h3>
                 <p className="text-muted-foreground">
-                  Your data is secure and private. We never share your 
-                  information with third parties.
+                  {t.privacyFirstDesc}
                 </p>
               </CardContent>
             </Card>
@@ -173,13 +169,13 @@ export default function Home() {
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <button className="hover-elevate px-2 py-1 rounded-md" data-testid="link-privacy">
-                Privacy Policy
+                {t.privacyPolicy}
               </button>
               <button className="hover-elevate px-2 py-1 rounded-md" data-testid="link-terms">
-                Terms of Service
+                {t.termsOfService}
               </button>
               <button className="hover-elevate px-2 py-1 rounded-md" data-testid="link-contact">
-                Contact Support
+                {t.contactSupport}
               </button>
             </div>
           </div>
