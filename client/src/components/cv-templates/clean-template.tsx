@@ -11,8 +11,8 @@ interface CVTemplateProps {
 
 export function CleanTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
   const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+
   const formatDate = (date: string, current: boolean) => {
-  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
     if (current) return t.present;
     if (!date) return "";
     const d = new Date(date);

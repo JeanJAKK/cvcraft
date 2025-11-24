@@ -13,6 +13,7 @@ import { Plus, X } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { z } from "zod";
 import { useState } from "react";
+import { useTranslations } from "@/hooks/use-translations";
 
 interface CVFormProps {
   initialData: {
@@ -26,6 +27,7 @@ interface CVFormProps {
 }
 
 export function CVForm({ initialData, onUpdate }: CVFormProps) {
+  const t = useTranslations();
   const [photoPreview, setPhotoPreview] = useState<string | undefined>(initialData.personalInfo.profilePhoto);
 
   const form = useForm<z.infer<typeof cvDataSchema>>({
@@ -116,7 +118,7 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
         {/* Personal Information */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">Personal Information</CardTitle>
+            <CardTitle className="text-xl">{t.personalInformation}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

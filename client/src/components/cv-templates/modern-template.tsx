@@ -11,9 +11,7 @@ interface CVTemplateProps {
 
 export function ModernTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
   const t = translations || {
-    present: 'Present',
-    experience: 'Work Experience',
-    education: 'Education',
+
     skills: 'Skills',
     summary: 'Professional Summary'
   };
