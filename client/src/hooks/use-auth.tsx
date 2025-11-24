@@ -57,7 +57,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
     onSuccess: (data) => {
       setUser(data);
-      queryClient.invalidateQueries();
+      // Force a small delay to ensure state is updated and Router can re-render
+      setTimeout(() => {
+        queryClient.invalidateQueries();
+      }, 100);
     },
   });
 
