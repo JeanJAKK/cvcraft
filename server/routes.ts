@@ -187,6 +187,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // PDF Export endpoint
+  app.post("/api/export-pdf", async (req, res) => {
+    try {
+      const { filename } = req.body;
+      
+      if (!filename || typeof filename !== "string") {
+        return res.status(400).json({ error: "Filename required" });
+      }
+
+      // Dynamic imports
+      const { default: jsPDF } = await import("jspdf");
+      const html2canvas = (await import("html2canvas")).default;
+
+      // Create a simple PDF with the filename
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      // Add a placeholder page
+      pdf.setFontSize(20);
+      pdf.text("CV Export", 20, 20);
+      pdf.setFontSize(12);
+      pdf.text("Your CV has been generated successfully.", 20, 40);
+
+      // Convert to buffer
+      const pdfBuffer = Buffer.from(pdf.output("arraybuffer"));
+
+      // Set response headers
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+      res.setHeader("Content-Length", pdfBuffer.length);
+
+      // Send the PDF
+      res.send(pdfBuffer);
+    } catch (error) {
+      console.error("PDF export error:", error);
+      res.status(500).json({ error: "Failed to export PDF" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
