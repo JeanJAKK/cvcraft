@@ -24,7 +24,7 @@ function TemplateCardSkeleton() {
       <CardContent className="p-0">
         <Skeleton className="aspect-[8.5/11] w-full" />
       </CardContent>
-      <CardFooter className="flex flex-col gap-3 p-4">
+      <CardFooter className="flex flex-col p-4">
         <div className="w-full space-y-2">
           <Skeleton className="h-6 w-3/4" />
           <Skeleton className="h-4 w-1/2" />
@@ -120,7 +120,7 @@ function TemplateCard({ template }: { template: Template }) {
         </div>
       </CardContent>
       
-      <CardFooter className="flex flex-col gap-3 p-4">
+      <CardFooter className="flex flex-col p-4">
         <div className="w-full">
           <h3 className="font-semibold text-lg mb-1" data-testid={`text-template-name-${template.id}`}>
             {template.name}
