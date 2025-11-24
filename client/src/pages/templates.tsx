@@ -205,8 +205,7 @@ export default function TemplatesPage() {
               Professional CV Templates
             </h1>
             <p className="text-lg text-muted-foreground">
-              Choose from our collection of beautifully designed templates. 
-              Start with free options or unlock premium designs for just $9.99.
+              Choose from our collection of 16 beautifully designed templates. All completely free.
             </p>
           </div>
 
