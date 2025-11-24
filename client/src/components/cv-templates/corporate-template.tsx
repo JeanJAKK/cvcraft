@@ -23,7 +23,7 @@ export function CorporateTemplate({ personalInfo, experience, education, skills,
     <div className="bg-white text-gray-900 p-12 min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header Bar */}
       <div className="bg-blue-900 text-white p-6 mb-8 -mx-12 px-12">
-        <h1 className="text-4xl font-bold mb-3">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-4xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
         <div className="flex flex-wrap gap-4 text-sm">
           <span>{personalInfo.email || "email@example.com"}</span>
           <span>|</span>

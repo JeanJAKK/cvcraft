@@ -23,7 +23,7 @@ export function CardsTemplate({ personalInfo, experience, education, skills, tra
     <div className="bg-gray-50 text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-5xl font-bold mb-1">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-5xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
         <div className="flex flex-wrap gap-4 text-sm text-gray-600">
           <span>{personalInfo.email || "email@example.com"}</span>
           <span>•</span>

@@ -25,7 +25,7 @@ export function TwoColumnTemplate({ personalInfo, experience, education, skills,
       <div className="flex-1">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-3">{personalInfo.fullName || "Your Name"}</h1>
+          <h1 className="text-4xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
           <div className="text-sm text-gray-600 space-y-1">
             <p>{personalInfo.email || "email@example.com"}</p>
             <p>{personalInfo.phone || "+1 234 567 890"}</p>

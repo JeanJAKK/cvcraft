@@ -31,7 +31,7 @@ export function TechTemplate({ personalInfo, experience, education, skills, tran
           />
         )}
         <div className="flex-1">
-          <h1 className="text-4xl font-bold mb-1 font-mono">{personalInfo.fullName || "Your Name"}</h1>
+          <h1 className="text-4xl font-bold mb-4 font-mono">{personalInfo.fullName || "Your Name"}</h1>
           <div className="h-1 w-16 bg-cyan-500 mb-4"></div>
           <div className="flex flex-wrap gap-3 text-sm text-gray-600 font-mono">
             <span>&lt; {personalInfo.email || "email@example.com"} &gt;</span>

@@ -36,7 +36,7 @@ export function ModernTemplate({ personalInfo, experience, education, skills, tr
             />
           )}
           <div className="flex-1">
-            <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <h1 className="text-4xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
             <div className="flex flex-wrap gap-4 text-sm text-gray-600">
               <div className="flex items-center gap-1">
                 <Mail className="h-4 w-4 flex-shrink-0" />

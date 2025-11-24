@@ -41,7 +41,7 @@ export function SidebarTemplate({ personalInfo, experience, education, skills, t
       <div className="flex-1 p-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-1">{personalInfo.fullName || "Your Name"}</h1>
+          <h1 className="text-4xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
           <div className="text-xs text-gray-600 space-y-1">
             <p>{personalInfo.email || "email@example.com"}</p>
             <p>{personalInfo.phone || "+1 234 567 890"}</p>

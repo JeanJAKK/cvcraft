@@ -22,7 +22,7 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
     <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-5xl font-light tracking-tight mb-1">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-5xl font-light tracking-tight mb-4">{personalInfo.fullName || "Your Name"}</h1>
         <div className="h-0.5 w-20 bg-gray-300 mb-4"></div>
         <div className="flex flex-wrap gap-4 text-sm text-gray-600">
           <span>{personalInfo.email || "email@example.com"}</span>

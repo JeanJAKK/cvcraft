@@ -33,7 +33,7 @@ export function DesignerTemplate({ personalInfo, experience, education, skills, 
           <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex-shrink-0"></div>
         )}
         <div className="flex-1">
-          <h1 className="text-4xl font-bold mb-1">{personalInfo.fullName || "Your Name"}</h1>
+          <h1 className="text-4xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
           <div className="h-1 w-12 bg-indigo-500 mb-3"></div>
           <div className="flex flex-wrap gap-3 text-sm text-gray-600">
             <span>{personalInfo.email || "email@example.com"}</span>

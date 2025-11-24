@@ -31,7 +31,7 @@ export function ClassicTemplate({ personalInfo, experience, education, skills, t
             />
           )}
           <div className="text-center">
-            <h1 className="text-3xl font-serif font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <h1 className="text-3xl font-serif font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
             <div className="text-sm text-gray-600 space-x-3">
               <span>{personalInfo.email || "email@example.com"}</span>
               <span>•</span>

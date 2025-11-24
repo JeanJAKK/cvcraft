@@ -23,7 +23,7 @@ export function BlueTemplate({ personalInfo, experience, education, skills, tran
     <div className="bg-white text-gray-900 p-12 min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header */}
       <div className="mb-8 pb-6 border-b-4 border-blue-500">
-        <h1 className="text-5xl font-bold text-blue-600 mb-2">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-5xl font-bold text-blue-600 mb-4">{personalInfo.fullName || "Your Name"}</h1>
         <div className="flex flex-wrap gap-4 text-sm text-gray-600">
           <span>{personalInfo.email || "email@example.com"}</span>
           <span>•</span>

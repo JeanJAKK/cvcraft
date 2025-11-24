@@ -23,8 +23,8 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
     <div className="bg-white text-gray-900 p-8 min-h-[297mm]" style={{ width: "210mm" }}>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-black uppercase letter-spacing-tight">{personalInfo.fullName || "Your Name"}</h1>
-        <p className="text-xs text-gray-500 mt-2">
+        <h1 className="text-3xl font-black uppercase letter-spacing-tight mb-3">{personalInfo.fullName || "Your Name"}</h1>
+        <p className="text-xs text-gray-500">
           {personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"} • {personalInfo.location || "Location"}
         </p>
       </div>

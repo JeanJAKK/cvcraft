@@ -32,7 +32,7 @@ export function ExecutiveTemplate({ personalInfo, experience, education, skills,
             />
           )}
           <div className="flex-1">
-            <h1 className="text-5xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <h1 className="text-5xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
             <div className="flex flex-wrap gap-4 text-sm text-gray-300">
               <span>{personalInfo.email || "email@example.com"}</span>
               <span>•</span>

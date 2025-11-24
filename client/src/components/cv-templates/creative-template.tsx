@@ -32,7 +32,7 @@ export function CreativeTemplate({ personalInfo, experience, education, skills, 
             />
           )}
           <div className="flex-1">
-            <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <h1 className="text-4xl font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
             <div className="flex flex-wrap gap-3 text-sm">
               <span>{personalInfo.email || "email@example.com"}</span>
               <span>•</span>
