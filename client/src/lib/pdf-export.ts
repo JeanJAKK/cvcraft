@@ -6,76 +6,113 @@ export async function exportToPDF(
   filename: string = "cv.pdf"
 ): Promise<void> {
   try {
-    // Find the inner template element (unscaled)
-    const innerElement = element.querySelector("div:first-child") as HTMLElement || element;
+    console.log("Starting PDF export...");
     
     // Create a temporary container with proper styling for PDF export
     const container = document.createElement("div");
-    container.style.position = "fixed";
-    container.style.left = "-9999px";
-    container.style.top = "-9999px";
+    container.style.position = "absolute";
+    container.style.left = "-10000px";
+    container.style.top = "-10000px";
     container.style.width = "210mm";
-    container.style.zIndex = "-1";
+    container.style.height = "297mm";
+    container.style.padding = "10mm";
+    container.style.backgroundColor = "#ffffff";
+    container.style.zIndex = "-9999";
     
-    // Clone the template without transform
-    const clone = innerElement.cloneNode(true) as HTMLElement;
+    // Clone the full element
+    const clone = element.cloneNode(true) as HTMLElement;
+    
+    // Remove transform scaling
     clone.style.transform = "none";
     clone.style.transformOrigin = "none";
+    clone.style.width = "100%";
+    clone.style.height = "auto";
     
     container.appendChild(clone);
     document.body.appendChild(container);
     
-    // Wait a moment for rendering
-    await new Promise(resolve => setTimeout(resolve, 100));
+    console.log("Container added to DOM");
     
-    // Capture as canvas
+    // Wait for rendering
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Get actual dimensions of cloned element
+    const containerRect = container.getBoundingClientRect();
+    console.log("Container dimensions:", containerRect);
+    
+    // Capture container as canvas
     const canvas = await html2canvas(container, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: "#ffffff",
       allowTaint: true,
-      imageTimeout: 0,
-      windowHeight: 1189, // A4 height at 96dpi
+      useCORS: true,
+      logging: true,
+      scale: 1,
+      backgroundColor: "#ffffff",
+      windowWidth: 794, // 210mm at 96dpi
+      windowHeight: Math.max(1123, containerRect.height), // 297mm at 96dpi
     });
 
-    // Remove temporary container
+    console.log("Canvas created:", canvas.width, "x", canvas.height);
+
+    // Clean up
     document.body.removeChild(container);
 
-    // A4 dimensions in mm
-    const pdfWidth = 210;
-    const pdfHeight = 297;
-    
-    // Calculate image dimensions
-    const imgWidth = pdfWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    
     // Create PDF
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: "a4",
     });
-    
+
+    // Convert canvas to image
     const imgData = canvas.toDataURL("image/png");
-    
+    console.log("Image data URL created, length:", imgData.length);
+
+    // Calculate dimensions
+    const pageWidth = 210;
+    const pageHeight = 297;
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * pageWidth) / canvas.width;
+
+    console.log("Calculated dimensions - imgWidth:", imgWidth, "imgHeight:", imgHeight);
+
+    // Add pages
     let heightLeft = imgHeight;
     let position = 0;
 
-    // Add first page
-    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-    heightLeft -= pdfHeight;
+    pdf.addImage(imgData, "PNG", 0, 0, pageWidth, Math.min(imgHeight, pageHeight));
+    heightLeft -= pageHeight;
 
-    // Add additional pages if content is longer than one page
     while (heightLeft > 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pdfHeight;
+      pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+      heightLeft -= pageHeight;
     }
 
-    // Download the PDF
-    pdf.save(filename);
+    console.log("Triggering PDF download:", filename);
+
+    // Download using blob approach instead of pdf.save()
+    const pdfBlob = pdf.output("blob");
+    console.log("PDF blob created:", pdfBlob.size, "bytes");
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(pdfBlob);
+    link.download = filename;
+    document.body.appendChild(link);
+    console.log("Link created and added to DOM");
+
+    // Trigger download
+    link.click();
+    console.log("Link clicked");
+
+    // Clean up
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+      console.log("Cleanup completed");
+    }, 100);
+    
+    console.log("PDF export completed");
   } catch (error) {
     console.error("Error generating PDF:", error);
     throw new Error("Failed to generate PDF. Please try again.");
