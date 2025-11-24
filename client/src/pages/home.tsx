@@ -60,7 +60,7 @@ export default function Home() {
 
             <div className="pt-8">
               <p className="text-white/70 text-sm">
-                Join 50,000+ professionals who trust JAKK
+                Join 50,000+ professionals who trust CVCraft
               </p>
             </div>
           </div>
@@ -168,8 +168,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
-              <span className="font-semibold">JAKK</span>
-              <span className="text-muted-foreground">© {new Date().getFullYear()} Jean</span>
+              <span className="font-semibold">JeanJAKK</span>
+              <span className="text-muted-foreground">© {new Date().getFullYear()}</span>
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <button className="hover-elevate px-2 py-1 rounded-md" data-testid="link-privacy">

@@ -12,7 +12,7 @@ export function Navigation() {
         <Link href="/" data-testid="link-home">
           <div className="flex items-center gap-2 hover-elevate active-elevate-2 rounded-md px-2 py-1">
             <FileText className="h-6 w-6 text-primary" />
-            <span className="text-xl font-semibold">JAKK</span>
+            <span className="text-xl font-semibold">CVCraft</span>
           </div>
         </Link>
 
