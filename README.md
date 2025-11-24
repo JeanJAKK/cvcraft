@@ -58,12 +58,18 @@ A modern, full-featured CV/Resume generator built with React and Express. Create
 
 ## Getting Started
 
-### Prerequisites
-- Node.js 20+
-- PostgreSQL database (provided via Neon on Replit)
-- npm or yarn
+### Quick Start (Replit)
+The easiest way to get started is to fork this project on Replit - PostgreSQL is automatically provisioned!
 
-### Installation
+### Installation (Local PC)
+
+For detailed setup instructions on your local machine, see [LOCAL_SETUP.md](./LOCAL_SETUP.md) for:
+- PostgreSQL installation (local or cloud)
+- Environment configuration
+- Database initialization
+- Troubleshooting common issues
+
+**Quick steps:**
 
 1. **Clone the repository**
 ```bash
@@ -76,11 +82,11 @@ cd cvcraft
 npm install
 ```
 
-3. **Environment Setup**
-Create a `.env.local` file (on Replit, this is handled automatically via DATABASE_URL):
+3. **Configure environment**
+Create a `.env` file:
 ```env
-DATABASE_URL=your_neon_database_url
-NODE_ENV=development
+DATABASE_URL=postgresql://user:password@localhost:5432/cvcraft
+SESSION_SECRET=your_random_secret_key_32_chars_minimum
 ```
 
 4. **Setup Database**
