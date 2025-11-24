@@ -78,6 +78,15 @@ export const translations = {
     edit: 'Edit',
     
     present: 'Present',
+    
+    // Templates Page
+    professionalCVTemplates: 'Professional CV Templates',
+    chooseTemplates: 'Choose from our collection of 16 beautifully designed templates. All completely free.',
+    allTemplates: 'All Templates',
+    free: 'Free',
+    premium: 'Premium',
+    useTemplate: 'Use Template',
+    purchaseAndUse: 'Purchase & Use',
   },
   fr: {
     // Navigation
@@ -156,5 +165,14 @@ export const translations = {
     edit: 'Modifier',
     
     present: 'Actuel',
+    
+    // Templates Page
+    professionalCVTemplates: 'Modèles de CV Professionnels',
+    chooseTemplates: 'Choisissez parmi notre collection de 16 modèles magnifiquement conçus. Tous complètement gratuits.',
+    allTemplates: 'Tous les Modèles',
+    free: 'Gratuit',
+    premium: 'Premium',
+    useTemplate: 'Utiliser le Modèle',
+    purchaseAndUse: 'Acheter et Utiliser',
   }
 };

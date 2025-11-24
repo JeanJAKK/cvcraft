@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Navigation } from "@/components/navigation";
+import { useLanguage } from "@/lib/language-context";
+import { translations } from "@/lib/translations";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -115,7 +117,7 @@ function getTemplateComponent(templateId: string) {
   }
 }
 
-function TemplateCard({ template }: { template: Template }) {
+function TemplateCard({ template, translations }: { template: Template; translations: any }) {
   return (
     <Card 
       className="overflow-hidden hover-elevate transition-all duration-200" 
@@ -129,7 +131,7 @@ function TemplateCard({ template }: { template: Template }) {
             <div className="absolute top-3 right-3 z-10">
               <Badge className="gap-1 bg-primary/90 backdrop-blur-sm">
                 <Star className="h-3 w-3" />
-                Premium
+                {translations.premium}
               </Badge>
             </div>
           )}
@@ -158,7 +160,7 @@ function TemplateCard({ template }: { template: Template }) {
             ) : (
               <Badge variant="secondary" className="gap-1" data-testid={`badge-free-${template.id}`}>
                 <CheckCircle2 className="h-3 w-3" />
-                Free
+                {translations.free}
               </Badge>
             )}
           </div>
@@ -170,7 +172,7 @@ function TemplateCard({ template }: { template: Template }) {
             variant={template.isPremium ? "default" : "secondary"}
             data-testid={`button-use-template-${template.id}`}
           >
-            {template.isPremium ? "Purchase & Use" : "Use Template"}
+            {template.isPremium ? translations.purchaseAndUse : translations.useTemplate}
           </Button>
         </Link>
       </CardFooter>
@@ -180,6 +182,8 @@ function TemplateCard({ template }: { template: Template }) {
 
 export default function TemplatesPage() {
   const [filter, setFilter] = useState<"all" | "free" | "premium">("all");
+  const { language } = useLanguage();
+  const t = translations[language];
 
   // Fetch templates from backend
   const { data: templates, isLoading, error } = useQuery<Template[]>({
@@ -202,10 +206,10 @@ export default function TemplatesPage() {
           {/* Header */}
           <div className="text-center mb-12 max-w-3xl mx-auto space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold">
-              Professional CV Templates
+              {t.professionalCVTemplates}
             </h1>
             <p className="text-lg text-muted-foreground">
-              Choose from our collection of 16 beautifully designed templates. All completely free.
+              {t.chooseTemplates}
             </p>
           </div>
 
@@ -217,13 +221,13 @@ export default function TemplatesPage() {
           >
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
               <TabsTrigger value="all" data-testid="tab-all">
-                All Templates
+                {t.allTemplates}
               </TabsTrigger>
               <TabsTrigger value="free" data-testid="tab-free">
-                Free
+                {t.free}
               </TabsTrigger>
               <TabsTrigger value="premium" data-testid="tab-premium">
-                Premium
+                {t.premium}
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -248,7 +252,7 @@ export default function TemplatesPage() {
           {!isLoading && !error && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {filteredTemplates.map((template) => (
-                <TemplateCard key={template.id} template={template} />
+                <TemplateCard key={template.id} template={template} translations={t} />
               ))}
             </div>
           )}
