@@ -44,7 +44,7 @@ export function AcademicTemplate({ personalInfo, experience, education, skills, 
       {/* Summary */}
       {personalInfo.summary && (
         <div className="mb-8">
-          <h2 className="text-lg font-serif font-bold text-blue-900 mb-3 uppercase">Professional Summary</h2>
+          <h2 className="text-lg font-serif font-bold text-blue-900 mb-3 uppercase">{t.summary}</h2>
           <p className="text-gray-700 leading-relaxed text-justify">{personalInfo.summary}</p>
         </div>
       )}

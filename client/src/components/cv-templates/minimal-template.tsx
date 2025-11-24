@@ -48,7 +48,7 @@ export function MinimalTemplate({ personalInfo, experience, education, skills, t
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-medium">Experience</h2>
+          <h2 className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-medium">{t.experience}</h2>
           <div className="space-y-5">
             {experience.map((exp) => (
               <div key={exp.id}>
@@ -75,7 +75,7 @@ export function MinimalTemplate({ personalInfo, experience, education, skills, t
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-medium">Education</h2>
+          <h2 className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-medium">{t.education}</h2>
           <div className="space-y-5">
             {education.map((edu) => (
               <div key={edu.id}>
@@ -100,7 +100,7 @@ export function MinimalTemplate({ personalInfo, experience, education, skills, t
       {/* Skills */}
       {skills.length > 0 && skills.some(s => s.trim()) && (
         <div>
-          <h2 className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-medium">Skills</h2>
+          <h2 className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-medium">{t.skills}</h2>
           <div className="grid grid-cols-3 gap-2 text-sm text-gray-600 font-light">
             {skills.filter(s => s.trim()).map((skill, index) => (
               <span key={index}>{skill}</span>

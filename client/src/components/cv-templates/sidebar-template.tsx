@@ -26,7 +26,7 @@ export function SidebarTemplate({ personalInfo, experience, education, skills, t
         <div className="space-y-8">
           {skills.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase text-gray-700 mb-3">Skills</h3>
+              <h3 className="text-xs font-bold uppercase text-gray-700 mb-3">{t.skills}</h3>
               <div className="space-y-2">
                 {skills.filter(s => s).map((skill, i) => (
                   <div key={i} className="text-xs text-gray-600">{skill}</div>

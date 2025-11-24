@@ -39,7 +39,7 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-6">
-          <p className="text-xs font-black uppercase text-gray-900 mb-3">Experience</p>
+          <p className="text-xs font-black uppercase text-gray-900 mb-3">{t.experience}</p>
           {experience.map((exp, i) => (
             <div key={exp.id} className={i > 0 ? "mt-4" : ""}>
               <div className="flex justify-between items-baseline">
@@ -58,7 +58,7 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-6">
-          <p className="text-xs font-black uppercase text-gray-900 mb-3">Education</p>
+          <p className="text-xs font-black uppercase text-gray-900 mb-3">{t.education}</p>
           {education.map((edu, i) => (
             <div key={edu.id} className={i > 0 ? "mt-3" : ""}>
               <p className="text-xs font-bold text-gray-900">{edu.degree || "Degree"}</p>
@@ -71,7 +71,7 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
       {/* Skills */}
       {skills.length > 0 && (
         <div>
-          <p className="text-xs font-black uppercase text-gray-900 mb-2">Skills</p>
+          <p className="text-xs font-black uppercase text-gray-900 mb-2">{t.skills}</p>
           <p className="text-xs text-gray-700">
             {skills.filter(s => s).join(" • ")}
           </p>
