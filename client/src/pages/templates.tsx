@@ -99,7 +99,7 @@ function TemplateCard({ template }: { template: Template }) {
     >
       <CardContent className="p-0">
         {/* Template Preview - Actual Design */}
-        <div className="aspect-[8.5/11] bg-white border-b overflow-hidden relative scale-50 origin-top-left" style={{ transformOrigin: "top left", width: "200%" }}>
+        <div className="h-32 bg-white border-b overflow-hidden relative scale-50 origin-top-left" style={{ transformOrigin: "top left", width: "200%" }}>
           {getTemplateComponent(template.id)}
           {template.isPremium && (
             <div className="absolute top-3 right-3 z-10">
