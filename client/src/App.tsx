@@ -52,10 +52,7 @@ function Router() {
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
-        <Route component={() => {
-          window.location.href = '/login';
-          return null;
-        }} />
+        <Route component={LoginPage} />
       </Switch>
     );
   }
