@@ -9,6 +9,14 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star, CheckCircle2, Sparkles } from "lucide-react";
 import type { Template } from "@shared/schema";
+import { ModernTemplate } from "@/components/cv-templates/modern-template";
+import { ClassicTemplate } from "@/components/cv-templates/classic-template";
+import { MinimalTemplate } from "@/components/cv-templates/minimal-template";
+import { CreativeTemplate } from "@/components/cv-templates/creative-template";
+import { ExecutiveTemplate } from "@/components/cv-templates/executive-template";
+import { TechTemplate } from "@/components/cv-templates/tech-template";
+import { DesignerTemplate } from "@/components/cv-templates/designer-template";
+import { AcademicTemplate } from "@/components/cv-templates/academic-template";
 
 function TemplateCardSkeleton() {
   return (
@@ -27,6 +35,62 @@ function TemplateCardSkeleton() {
   );
 }
 
+function getTemplateComponent(templateId: string) {
+  const defaultProps = {
+    personalInfo: {
+      fullName: "Alex Johnson",
+      email: "alex@example.com",
+      phone: "+1 (555) 123-4567",
+      location: "San Francisco, CA",
+      summary: "Creative professional with passion for excellence",
+    },
+    experience: [
+      {
+        id: "1",
+        position: "Senior Designer",
+        company: "Tech Corp",
+        startDate: "2021-01-15",
+        endDate: "",
+        current: true,
+        description: "Led design initiatives",
+      },
+    ],
+    education: [
+      {
+        id: "1",
+        degree: "Bachelor's",
+        school: "University",
+        startDate: "2015-09-01",
+        endDate: "2019-05-30",
+        current: false,
+        description: "Major in Design",
+      },
+    ],
+    skills: ["Design", "Leadership", "Strategy"],
+  };
+
+  switch (templateId) {
+    case "modern":
+      return <ModernTemplate {...defaultProps} />;
+    case "classic":
+      return <ClassicTemplate {...defaultProps} />;
+    case "minimal":
+      return <MinimalTemplate {...defaultProps} />;
+    case "creative":
+      return <CreativeTemplate {...defaultProps} />;
+    case "executive":
+      return <ExecutiveTemplate {...defaultProps} />;
+    case "tech":
+      return <TechTemplate {...defaultProps} />;
+    case "designer":
+      return <DesignerTemplate {...defaultProps} />;
+    case "academic":
+      return <AcademicTemplate {...defaultProps} />;
+    default:
+      return <ModernTemplate {...defaultProps} />;
+  }
+}
+
 function TemplateCard({ template }: { template: Template }) {
   return (
     <Card 
@@ -34,14 +98,11 @@ function TemplateCard({ template }: { template: Template }) {
       data-testid={`card-template-${template.id}`}
     >
       <CardContent className="p-0">
-        {/* Template Preview - Placeholder with styling */}
-        <div className="aspect-[8.5/11] bg-gradient-to-br from-card to-muted border-b flex items-center justify-center relative">
-          <div className="text-center space-y-2 p-8">
-            <div className="text-6xl font-bold text-muted-foreground/20">CV</div>
-            <div className="text-sm text-muted-foreground">{template.name}</div>
-          </div>
+        {/* Template Preview - Actual Design */}
+        <div className="aspect-[8.5/11] bg-white border-b overflow-hidden relative scale-50 origin-top-left" style={{ transformOrigin: "top left", width: "200%" }}>
+          {getTemplateComponent(template.id)}
           {template.isPremium && (
-            <div className="absolute top-3 right-3">
+            <div className="absolute top-3 right-3 z-10">
               <Badge className="gap-1 bg-primary/90 backdrop-blur-sm">
                 <Star className="h-3 w-3" />
                 Premium
@@ -49,7 +110,7 @@ function TemplateCard({ template }: { template: Template }) {
             </div>
           )}
           {template.id === "modern" && (
-            <div className="absolute top-3 left-3">
+            <div className="absolute top-3 left-3 z-10">
               <Badge variant="secondary" className="gap-1">
                 <Sparkles className="h-3 w-3" />
                 Most Popular

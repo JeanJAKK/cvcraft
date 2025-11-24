@@ -1,0 +1,98 @@
+import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
+
+interface CVTemplateProps {
+  personalInfo: PersonalInfo;
+  experience: ExperienceEntry[];
+  education: EducationEntry[];
+  skills: string[];
+}
+
+export function AcademicTemplate({ personalInfo, experience, education, skills }: CVTemplateProps) {
+  const formatDate = (date: string, current: boolean) => {
+    if (current) return "Present";
+    if (!date) return "";
+    const d = new Date(date);
+    return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  };
+
+  return (
+    <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
+      {/* Header - Academic */}
+      <div className="text-center border-b-4 border-blue-900 pb-6 mb-8">
+        <h1 className="text-3xl font-serif font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+        <div className="text-sm text-gray-600 space-y-1">
+          <p>{personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"}</p>
+          <p>{personalInfo.location || "Location"}</p>
+        </div>
+      </div>
+
+      {/* Summary */}
+      {personalInfo.summary && (
+        <div className="mb-8">
+          <h2 className="text-lg font-serif font-bold text-blue-900 mb-3 uppercase">Professional Summary</h2>
+          <p className="text-gray-700 leading-relaxed text-justify">{personalInfo.summary}</p>
+        </div>
+      )}
+
+      {/* Experience */}
+      {experience.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-serif font-bold text-blue-900 mb-3 uppercase">Professional Experience</h2>
+          <div className="space-y-4">
+            {experience.map((exp) => (
+              <div key={exp.id}>
+                <div className="flex justify-between items-baseline mb-1">
+                  <div>
+                    <h3 className="font-bold">{exp.position || "Position"}</h3>
+                    <p className="italic text-gray-600 text-sm">{exp.company || "Company"}</p>
+                  </div>
+                  <span className="text-xs text-gray-500">
+                    {formatDate(exp.startDate, false)} – {formatDate(exp.endDate, exp.current)}
+                  </span>
+                </div>
+                {exp.description && (
+                  <p className="text-gray-700 text-sm mt-2 whitespace-pre-wrap text-justify">{exp.description}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Education */}
+      {education.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-serif font-bold text-blue-900 mb-3 uppercase">Education</h2>
+          <div className="space-y-4">
+            {education.map((edu) => (
+              <div key={edu.id}>
+                <div className="flex justify-between items-baseline mb-1">
+                  <div>
+                    <h3 className="font-bold">{edu.degree || "Degree"}</h3>
+                    <p className="italic text-gray-600 text-sm">{edu.school || "School"}</p>
+                  </div>
+                  <span className="text-xs text-gray-500">
+                    {formatDate(edu.startDate, false)} – {formatDate(edu.endDate, edu.current)}
+                  </span>
+                </div>
+                {edu.description && (
+                  <p className="text-gray-700 text-sm mt-2 text-justify">{edu.description}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Skills */}
+      {skills.length > 0 && skills.some(s => s.trim()) && (
+        <div>
+          <h2 className="text-lg font-serif font-bold text-blue-900 mb-3 uppercase">Core Competencies</h2>
+          <p className="text-gray-700 text-sm text-justify">
+            {skills.filter(s => s.trim()).join(", ")}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
