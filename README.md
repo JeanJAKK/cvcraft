@@ -1,7 +1,7 @@
 # CVCraft - Modern CV/Resume Generator SaaS
 
 A modern, full-featured CV/Resume generator built with React and Express. Create, customize, and export professional CVs in PDF format with multiple templates.
-Link: https://cvcraft-production.up.railway.app
+## https://cvcraft-production.up.railway.app
 
 ![CVCraft](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
