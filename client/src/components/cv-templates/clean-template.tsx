@@ -31,7 +31,7 @@ export function CleanTemplate({ personalInfo, experience, education, skills, tra
           </div>
           <div>
             <p className="font-semibold text-gray-700">Phone</p>
-            <p>{personalInfo.phone || "+1 234 567 890"}</p>
+            <p>{personalInfo.phone || "+228 93 49 52 90"}</p>
           </div>
           <div>
             <p className="font-semibold text-gray-700">Location</p>

@@ -33,7 +33,7 @@ export function MinimalTemplate({ personalInfo, experience, education, skills, t
         <div className="flex-1">
           <h1 className="text-5xl font-light mb-4">{personalInfo.fullName || "Your Name"}</h1>
           <div className="text-sm text-gray-500 font-light">
-            {personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"} • {personalInfo.location || "Location"}
+            {personalInfo.email || "email@example.com"} • {personalInfo.phone || "+228 93 49 52 90"} • {personalInfo.location || "Location"}
           </div>
         </div>
       </div>

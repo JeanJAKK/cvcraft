@@ -34,7 +34,7 @@ export function AcademicTemplate({ personalInfo, experience, education, skills, 
           <div className="text-center">
             <h1 className="text-3xl font-serif font-bold mb-4">{personalInfo.fullName || "Your Name"}</h1>
             <div className="text-sm text-gray-600 space-y-1">
-              <p>{personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"}</p>
+              <p>{personalInfo.email || "email@example.com"} • {personalInfo.phone || "+228 93 49 52 90"}</p>
               <p>{personalInfo.location || "Location"}</p>
             </div>
           </div>
