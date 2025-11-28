@@ -128,7 +128,7 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
                 <FormItem>
                   <FormLabel>Full Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} data-testid="input-fullname" />
+                    <Input placeholder="Jean JAKK" {...field} data-testid="input-fullname" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,7 +142,7 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john@example.com" {...field} data-testid="input-email" />
+                    <Input type="email" placeholder="jean@example.com" {...field} data-testid="input-email" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -157,7 +157,7 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
                   <FormItem>
                     <FormLabel>Phone</FormLabel>
                     <FormControl>
-                      <Input placeholder="+1 234 567 890" {...field} data-testid="input-phone" />
+                      <Input placeholder="+228 93 49 52 90" {...field} data-testid="input-phone" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -171,7 +171,7 @@ export function CVForm({ initialData, onUpdate }: CVFormProps) {
                   <FormItem>
                     <FormLabel>Location</FormLabel>
                     <FormControl>
-                      <Input placeholder="New York, NY" {...field} data-testid="input-location" />
+                      <Input placeholder="Lomé, Togo" {...field} data-testid="input-location" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

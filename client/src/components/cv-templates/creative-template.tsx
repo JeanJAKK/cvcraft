@@ -36,7 +36,7 @@ export function CreativeTemplate({ personalInfo, experience, education, skills, 
             <div className="flex flex-wrap gap-3 text-sm">
               <span>{personalInfo.email || "email@example.com"}</span>
               <span>•</span>
-              <span>{personalInfo.phone || "+1 234 567 890"}</span>
+              <span>{personalInfo.phone || "+228 93 49 52 90"}</span>
               <span>•</span>
               <span>{personalInfo.location || "Location"}</span>
             </div>

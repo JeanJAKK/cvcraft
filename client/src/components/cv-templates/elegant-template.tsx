@@ -1,4 +1,8 @@
-import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
+import type {
+  PersonalInfo,
+  ExperienceEntry,
+  EducationEntry,
+} from "@shared/schema";
 
 interface CVTemplateProps {
   personalInfo: PersonalInfo;
@@ -8,8 +12,20 @@ interface CVTemplateProps {
   translations?: any;
 }
 
-export function ElegantTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
-  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+export function ElegantTemplate({
+  personalInfo,
+  experience,
+  education,
+  skills,
+  translations,
+}: CVTemplateProps) {
+  const t = translations || {
+    present: "Present",
+    experience: "Experience",
+    education: "Education",
+    skills: "Skills",
+    summary: "Summary",
+  };
 
   const formatDate = (date: string, current: boolean) => {
     if (current) return t.present;
@@ -19,15 +35,20 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
   };
 
   return (
-    <div className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]" style={{ width: "210mm" }}>
+    <div
+      className="bg-white text-gray-900 p-12 shadow-lg min-h-[297mm]"
+      style={{ width: "210mm" }}
+    >
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-5xl font-light tracking-tight mb-4">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-5xl font-light tracking-tight mb-4">
+          {personalInfo.fullName || "Your Name"}
+        </h1>
         <div className="h-0.5 w-20 bg-gray-300 mb-4"></div>
         <div className="flex flex-wrap gap-4 text-sm text-gray-600">
           <span>{personalInfo.email || "email@example.com"}</span>
           <span>•</span>
-          <span>{personalInfo.phone || "+1 234 567 890"}</span>
+          <span>{personalInfo.phone || "+228 93 49 52 90"}</span>
           <span>•</span>
           <span>{personalInfo.location || "Location"}</span>
         </div>
@@ -36,26 +57,37 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
       {/* Summary */}
       {personalInfo.summary && (
         <div className="mb-8">
-          <p className="text-gray-700 leading-relaxed text-sm">{personalInfo.summary}</p>
+          <p className="text-gray-700 leading-relaxed text-sm">
+            {personalInfo.summary}
+          </p>
         </div>
       )}
 
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">{t.experience}</h2>
+          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">
+            {t.experience}
+          </h2>
           <div className="space-y-5">
             {experience.map((exp) => (
               <div key={exp.id}>
                 <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="font-semibold text-gray-900">{exp.position || "Position"}</h3>
+                  <h3 className="font-semibold text-gray-900">
+                    {exp.position || "Position"}
+                  </h3>
                   <span className="text-xs text-gray-500">
-                    {formatDate(exp.startDate, false)} – {formatDate(exp.endDate, exp.current)}
+                    {formatDate(exp.startDate, false)} –{" "}
+                    {formatDate(exp.endDate, exp.current)}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{exp.company || "Company"}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {exp.company || "Company"}
+                </p>
                 {exp.description && (
-                  <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">{exp.description}</p>
+                  <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+                    {exp.description}
+                  </p>
                 )}
               </div>
             ))}
@@ -66,17 +98,24 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">{t.education}</h2>
+          <h2 className="text-lg font-light tracking-wide mb-4 text-gray-800">
+            {t.education}
+          </h2>
           <div className="space-y-4">
             {education.map((edu) => (
               <div key={edu.id}>
                 <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="font-semibold text-gray-900">{edu.degree || "Degree"}</h3>
+                  <h3 className="font-semibold text-gray-900">
+                    {edu.degree || "Degree"}
+                  </h3>
                   <span className="text-xs text-gray-500">
-                    {formatDate(edu.startDate, false)} – {formatDate(edu.endDate, edu.current)}
+                    {formatDate(edu.startDate, false)} –{" "}
+                    {formatDate(edu.endDate, edu.current)}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600">{edu.school || "School"}</p>
+                <p className="text-sm text-gray-600">
+                  {edu.school || "School"}
+                </p>
               </div>
             ))}
           </div>
@@ -86,13 +125,20 @@ export function ElegantTemplate({ personalInfo, experience, education, skills, t
       {/* Skills */}
       {skills.length > 0 && (
         <div>
-          <h2 className="text-lg font-light tracking-wide mb-3 text-gray-800">{t.skills}</h2>
+          <h2 className="text-lg font-light tracking-wide mb-3 text-gray-800">
+            {t.skills}
+          </h2>
           <div className="flex flex-wrap gap-2">
-            {skills.filter(s => s).map((skill, i) => (
-              <span key={i} className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded">
-                {skill}
-              </span>
-            ))}
+            {skills
+              .filter((s) => s)
+              .map((skill, i) => (
+                <span
+                  key={i}
+                  className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded"
+                >
+                  {skill}
+                </span>
+              ))}
           </div>
         </div>
       )}

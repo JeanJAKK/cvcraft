@@ -35,7 +35,7 @@ export function ClassicTemplate({ personalInfo, experience, education, skills, t
             <div className="text-sm text-gray-600 space-x-3">
               <span>{personalInfo.email || "email@example.com"}</span>
               <span>•</span>
-              <span>{personalInfo.phone || "+1 234 567 890"}</span>
+              <span>{personalInfo.phone || "+228 93 49 52 90"}</span>
               <span>•</span>
               <span>{personalInfo.location || "Location"}</span>
             </div>

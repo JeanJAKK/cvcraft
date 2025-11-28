@@ -1,7 +1,10 @@
-import type { PersonalInfo, ExperienceEntry, EducationEntry } from "@shared/schema";
+import type {
+  PersonalInfo,
+  ExperienceEntry,
+  EducationEntry,
+} from "@shared/schema";
 
 interface CVTemplateProps {
-
   translations?: any;
   personalInfo: PersonalInfo;
   experience: ExperienceEntry[];
@@ -9,8 +12,20 @@ interface CVTemplateProps {
   skills: string[];
 }
 
-export function MinimalistTemplate({ personalInfo, experience, education, skills, translations }: CVTemplateProps) {
-  const t = translations || { present: "Present", experience: "Experience", education: "Education", skills: "Skills", summary: "Summary" };
+export function MinimalistTemplate({
+  personalInfo,
+  experience,
+  education,
+  skills,
+  translations,
+}: CVTemplateProps) {
+  const t = translations || {
+    present: "Present",
+    experience: "Experience",
+    education: "Education",
+    skills: "Skills",
+    summary: "Summary",
+  };
 
   const formatDate = (date: string, current: boolean) => {
     if (current) return t.present;
@@ -20,12 +35,19 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
   };
 
   return (
-    <div className="bg-white text-gray-900 p-8 min-h-[297mm]" style={{ width: "210mm" }}>
+    <div
+      className="bg-white text-gray-900 p-8 min-h-[297mm]"
+      style={{ width: "210mm" }}
+    >
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-black uppercase letter-spacing-tight mb-3">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-3xl font-black uppercase letter-spacing-tight mb-3">
+          {personalInfo.fullName || "Your Name"}
+        </h1>
         <p className="text-xs text-gray-500">
-          {personalInfo.email || "email@example.com"} • {personalInfo.phone || "+1 234 567 890"} • {personalInfo.location || "Location"}
+          {personalInfo.email || "email@example.com"} •{" "}
+          {personalInfo.phone || "+228 93 49 52 90"} •{" "}
+          {personalInfo.location || "Location"}
         </p>
       </div>
 
@@ -39,14 +61,23 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
       {/* Experience */}
       {experience.length > 0 && (
         <div className="mb-6">
-          <p className="text-xs font-black uppercase text-gray-900 mb-3">{t.experience}</p>
+          <p className="text-xs font-black uppercase text-gray-900 mb-3">
+            {t.experience}
+          </p>
           {experience.map((exp, i) => (
             <div key={exp.id} className={i > 0 ? "mt-4" : ""}>
               <div className="flex justify-between items-baseline">
-                <p className="text-xs font-bold text-gray-900">{exp.position || "Position"}</p>
-                <p className="text-xs text-gray-500">{formatDate(exp.startDate, false)} – {formatDate(exp.endDate, exp.current)}</p>
+                <p className="text-xs font-bold text-gray-900">
+                  {exp.position || "Position"}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {formatDate(exp.startDate, false)} –{" "}
+                  {formatDate(exp.endDate, exp.current)}
+                </p>
               </div>
-              <p className="text-xs text-gray-600">{exp.company || "Company"}</p>
+              <p className="text-xs text-gray-600">
+                {exp.company || "Company"}
+              </p>
               {exp.description && (
                 <p className="text-xs text-gray-700 mt-1">{exp.description}</p>
               )}
@@ -58,11 +89,18 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
       {/* Education */}
       {education.length > 0 && (
         <div className="mb-6">
-          <p className="text-xs font-black uppercase text-gray-900 mb-3">{t.education}</p>
+          <p className="text-xs font-black uppercase text-gray-900 mb-3">
+            {t.education}
+          </p>
           {education.map((edu, i) => (
             <div key={edu.id} className={i > 0 ? "mt-3" : ""}>
-              <p className="text-xs font-bold text-gray-900">{edu.degree || "Degree"}</p>
-              <p className="text-xs text-gray-600">{edu.school || "School"} • {formatDate(edu.startDate, false)} – {formatDate(edu.endDate, edu.current)}</p>
+              <p className="text-xs font-bold text-gray-900">
+                {edu.degree || "Degree"}
+              </p>
+              <p className="text-xs text-gray-600">
+                {edu.school || "School"} • {formatDate(edu.startDate, false)} –{" "}
+                {formatDate(edu.endDate, edu.current)}
+              </p>
             </div>
           ))}
         </div>
@@ -71,9 +109,11 @@ export function MinimalistTemplate({ personalInfo, experience, education, skills
       {/* Skills */}
       {skills.length > 0 && (
         <div>
-          <p className="text-xs font-black uppercase text-gray-900 mb-2">{t.skills}</p>
+          <p className="text-xs font-black uppercase text-gray-900 mb-2">
+            {t.skills}
+          </p>
           <p className="text-xs text-gray-700">
-            {skills.filter(s => s).join(" • ")}
+            {skills.filter((s) => s).join(" • ")}
           </p>
         </div>
       )}

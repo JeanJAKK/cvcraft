@@ -48,10 +48,10 @@ function TemplateCardSkeleton() {
 function getTemplateComponent(templateId: string) {
   const defaultProps = {
     personalInfo: {
-      fullName: "Alex Johnson",
-      email: "alex@example.com",
-      phone: "+1 (555) 123-4567",
-      location: "San Francisco, CA",
+      fullName: "Jean JAKK",
+      email: "jean@example.com",
+      phone: "+228 93 49 52 90",
+      location: "Lomé, Togo",
       summary: "Creative professional with passion for excellence",
     },
     experience: [
@@ -117,15 +117,35 @@ function getTemplateComponent(templateId: string) {
   }
 }
 
-function TemplateCard({ template, translations }: { template: Template; translations: any }) {
+function TemplateCard({
+  template,
+  translations,
+}: {
+  template: Template;
+  translations: any;
+}) {
   return (
-    <Card 
-      className="overflow-hidden hover-elevate transition-all duration-200" 
+    <Card
+      className="overflow-hidden hover-elevate transition-all duration-200"
       data-testid={`card-template-${template.id}`}
     >
       <CardContent className="p-0">
         {/* Template Preview - Actual Design */}
-        <div className="aspect-[8.5/11] bg-white border-b overflow-hidden relative scale-50 origin-top-left" style={{ transformOrigin: "top left", width: "200%" }}>
+        <div
+          className="bg-white border-b overflow-hidden relative"
+          style={{ height: "400px" }}
+        >
+          <div
+            style={{
+              transform: "scale(0.45)",
+              transformOrigin: "top left",
+              width: "150%",
+              height: "125%",
+            }}
+          >
+            {getTemplateComponent(template.id)}
+          </div>
+
           {getTemplateComponent(template.id)}
           {template.isPremium && (
             <div className="absolute top-3 right-3 z-10">
@@ -145,34 +165,48 @@ function TemplateCard({ template, translations }: { template: Template; translat
           )}
         </div>
       </CardContent>
-      
+
       <CardFooter className="flex flex-col gap-2 p-3">
         <div className="w-full space-y-1">
-          <h3 className="font-semibold text-lg" data-testid={`text-template-name-${template.id}`}>
+          <h3
+            className="font-semibold text-lg"
+            data-testid={`text-template-name-${template.id}`}
+          >
             {template.name}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">{template.category}</span>
+            <span className="text-sm text-muted-foreground">
+              {template.category}
+            </span>
             {template.isPremium ? (
-              <span className="font-semibold text-primary" data-testid={`text-price-${template.id}`}>
+              <span
+                className="font-semibold text-primary"
+                data-testid={`text-price-${template.id}`}
+              >
                 ${(template.price! / 100).toFixed(2)}
               </span>
             ) : (
-              <Badge variant="secondary" className="gap-1" data-testid={`badge-free-${template.id}`}>
+              <Badge
+                variant="secondary"
+                className="gap-1"
+                data-testid={`badge-free-${template.id}`}
+              >
                 <CheckCircle2 className="h-3 w-3" />
                 {translations.free}
               </Badge>
             )}
           </div>
         </div>
-        
+
         <Link href={`/builder?template=${template.id}`} className="w-full">
-          <Button 
-            className="w-full" 
+          <Button
+            className="w-full"
             variant={template.isPremium ? "default" : "secondary"}
             data-testid={`button-use-template-${template.id}`}
           >
-            {template.isPremium ? translations.purchaseAndUse : translations.useTemplate}
+            {template.isPremium
+              ? translations.purchaseAndUse
+              : translations.useTemplate}
           </Button>
         </Link>
       </CardFooter>
@@ -186,16 +220,21 @@ export default function TemplatesPage() {
   const t = translations[language];
 
   // Fetch templates from backend
-  const { data: templates, isLoading, error } = useQuery<Template[]>({
+  const {
+    data: templates,
+    isLoading,
+    error,
+  } = useQuery<Template[]>({
     queryKey: ["/api/templates"],
   });
 
-  const filteredTemplates = templates?.filter(template => {
-    if (filter === "all") return true;
-    if (filter === "free") return !template.isPremium;
-    if (filter === "premium") return template.isPremium;
-    return true;
-  }) || [];
+  const filteredTemplates =
+    templates?.filter((template) => {
+      if (filter === "all") return true;
+      if (filter === "free") return !template.isPremium;
+      if (filter === "premium") return template.isPremium;
+      return true;
+    }) || [];
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -208,15 +247,13 @@ export default function TemplatesPage() {
             <h1 className="text-4xl md:text-5xl font-bold">
               {t.professionalCVTemplates}
             </h1>
-            <p className="text-lg text-muted-foreground">
-              {t.chooseTemplates}
-            </p>
+            <p className="text-lg text-muted-foreground">{t.chooseTemplates}</p>
           </div>
 
           {/* Filter Tabs */}
-          <Tabs 
-            defaultValue="all" 
-            className="mb-8" 
+          <Tabs
+            defaultValue="all"
+            className="mb-8"
             onValueChange={(v) => setFilter(v as "all" | "free" | "premium")}
           >
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
@@ -244,7 +281,9 @@ export default function TemplatesPage() {
           {/* Error State */}
           {error && (
             <div className="text-center py-16">
-              <p className="text-destructive">Failed to load templates. Please try again.</p>
+              <p className="text-destructive">
+                Failed to load templates. Please try again.
+              </p>
             </div>
           )}
 
@@ -252,7 +291,11 @@ export default function TemplatesPage() {
           {!isLoading && !error && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {filteredTemplates.map((template) => (
-                <TemplateCard key={template.id} template={template} translations={t} />
+                <TemplateCard
+                  key={template.id}
+                  template={template}
+                  translations={t}
+                />
               ))}
             </div>
           )}
